@@ -1,0 +1,170 @@
+.pay-request-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.4fr 3.3fr;
+    gap: 0 0;
+    grid-template-areas:
+    "."
+    "."
+    "tables";
+    max-height: 100%;
+
+    h1 {
+        border-bottom: 1px solid #000;
+        margin: 40px 60px 0 60px !important;
+    }
+
+    .request {
+        margin: 40px 60px 40px 60px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        button {
+            background-color: #00A3FF;
+            cursor: pointer;
+            color: floralwhite;
+            font-weight: bold;
+        }
+
+        button:hover {
+            filter: drop-shadow(0 0 .5rem black);
+        }
+
+        button:active {
+            filter: none;
+        }
+
+        input, button {
+            min-width: 200px;
+            width: 18%;
+            padding: 15px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    }
+
+    .tables {
+        overflow: hidden !important;
+        margin: 0 60px 40px 60px !important;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 60px;
+        grid-template-areas:
+        "sent rec"
+        "sent-table rec-table";
+        grid-area: tables;
+
+        .sent { grid-area: sent; }
+        .rec { grid-area: rec; }
+        .sent-table { grid-area: sent-table; }
+        .rec-table { grid-area: rec-table; }
+
+        h1 {
+            border-bottom: 1px solid #000;
+            margin: 0 !important;
+        }
+
+        .table-container {
+            overflow: auto;
+            margin-top: 40px;
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                position: relative;
+
+                thead {
+                    tr {
+                        th {
+                            padding: 10px;
+                            background-color: #00A3FF;
+                            color: floralwhite;
+                            font-size: larger;
+                            position: sticky;
+                            z-index: 100;
+                            top: 0;
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        td {
+                            padding: 10px;
+                            text-align: center;
+                            font-size: large;
+
+                            &.pending {
+                                color: goldenrod;
+                            }
+                            &.accepted {
+                                color: green;
+                            }
+
+                            &.rejected {
+                                color: orangered;
+                            }
+
+                            .accept, .reject {
+                                cursor: pointer;
+                            }
+
+                            .accept {
+                                color: green !important;
+                                margin-right: 5px;
+                            }
+
+                            .accept:hover {
+                                filter: drop-shadow(0 0 .5rem green);
+                            }
+
+                            .reject {
+                                color: orangered !important;
+                                margin-left: 5px;
+                            }
+
+                            .reject:hover {
+                                filter: drop-shadow(0 0 .5rem orangered);
+                            }
+                        }
+                    }
+
+                    tr:nth-child(even) td {
+                        background-color: lightgrey;
+                    }
+
+                    tr:hover {
+                        box-shadow: 0 0 20px -5px black;
+                        position: relative;
+                        z-index: 100;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1196px) {
+    .pay-request-container {
+        .tables {
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.1fr 1.9fr 0.1fr 1.9fr;
+            grid-template-areas:
+                    "sent"
+                    "sent-table"
+                    "rec"
+                    "rec-table";
+
+            .table-container {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

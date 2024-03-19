@@ -1,0 +1,76 @@
+.profile-container {
+    max-height: 100%;
+    overflow: hidden;
+
+    .section {
+        box-shadow: 0 0 20px -5px #000;
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        margin: 40px 60px 0 60px !important;
+        padding: 20px 40px 30px 40px;
+        justify-content: space-between;
+
+        .account-main-details {
+            display: flex;
+            justify-content: space-between;
+
+            .account-name, .account-balance {
+                font-size: xxx-large;
+                font-weight: 500;
+            }
+        }
+
+        .account-number, .account-sort-code {
+            color: grey;
+            font-weight: 500;
+            font-size: large;
+        }
+    }
+
+    h1 {
+        margin: 40px 60px 0 60px;
+        border-bottom: 1px solid black;
+    }
+
+    .profile-table, .account-table {
+        margin: 40px 60px 40px 60px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                tr {
+                    th {
+                        width: 50%;
+                        padding: 10px;
+                        background-color: #00A3FF;
+                        font-size: larger;
+                        color: floralwhite;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        width: 50%;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                }
+
+                tr:nth-child(even) td {
+                    background-color: lightgrey;
+                }
+
+                tr:hover {
+                    box-shadow: 0 0 20px -5px black;
+                    position: relative;
+                    z-index: 100;
+                }
+            }
+        }
+    }
+}

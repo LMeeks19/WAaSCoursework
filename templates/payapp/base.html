@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Webapps2024 Application{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/4314965b6a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'payapp/base.css' %}">
+</head>
+
+<body>
+<div class="page">
+    <div id="navbar" class="navbar">
+        <div class="topper">
+            <a href="/webapps2024/direct-payments/" class="link">
+                <i class="fa-solid fa-hand-holding-dollar fa-xl icon"></i>
+                <div class="text">Pay</div>
+            </a>
+            <a href="/webapps2024/payment-requests/" class="link">
+                <i class="fa-solid fa-file-invoice-dollar fa-xl icon"></i>
+                <div class="text">Request</div>
+            </a>
+            <a href="/webapps2024/transactions/" class="link">
+                <i class="fa-solid fa-money-bill-transfer fa-xl icon"></i>
+                <div class="text">Transactions</div>
+            </a>
+        </div>
+        <div class="footer">
+            <a href="/webapps2024/profile/" class="link">
+                <i class="fa-solid fa-circle-user fa-xl icon"></i>
+                <div class="text">Profile</div>
+            </a>
+            <a href="/webapps2024/login/" class="link">
+                <i class="fa-solid fa-right-from-bracket fa-xl icon"></i>
+                <div class="text">Sign Out</div>
+            </a>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

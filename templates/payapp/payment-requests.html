@@ -1,0 +1,185 @@
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Payapp Make Payment
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="pay-request-container">
+            <h1>Send Payment Request</h1>
+            <form class="request">
+                <label hidden="hidden" for="account-number"></label>
+                <input type="number" id="account-number" name="account-number" placeholder="Account Number: XXXXXXXX" min="8" max="8" required>
+                <label hidden="hidden" for="sort-code"></label>
+                <input type="number" id="sort-code" name="sort-code" placeholder="Sort Code: XXXXXX" min="6" max="6" required>
+                <label hidden="hidden" for="reference"></label>
+                <input type="text" id="reference" name="reference" placeholder="Reference" maxlength="50" required>
+                <label hidden="hidden" for="amount"></label>
+                <input type="number" id="amount" name="amount" placeholder="Amount" min="0" max="100" required><!-- max will be updated to max out at users available funds -->
+                <button type="submit">Request</button>
+            </form>
+            <div class="tables">
+                <h1 class="sent">Sent Payment Requests</h1>
+                <h1 class="rec">Received Payment Requests</h1>
+
+                <div class="table-container sent-rec">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Reference</th>
+                            <th>Sent On</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="accepted">ACCEPTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="rejected">REJECTED</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td class="pending">PENDING</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-container rec-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Reference</th>
+                            <th>Sent On</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User 1</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£500</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg accept"></i>
+                                <i class="fa-solid fa-xmark fa-lg reject"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>User 2</td>
+                            <td>Reference</td>
+                            <td>Date</td>
+                            <td>£20</td>
+                            <td>
+                                <i class="fa-solid fa-check fa-lg accept"></i>
+                                <i class="fa-solid fa-xmark fa-lg reject"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+.navbar {
+    min-width: fit-content;
+    background-color: #00A3FF;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 1px 0 10px 0 #000;
+    overflow: hidden;
+    position: fixed;
+    height: 100%;
+    border-right: 1px solid black;
+}
+
+.navbar .topper {
+    padding-top: 5px;
+}
+
+.navbar .footer {
+    padding-bottom: 5px;
+}
+
+.navbar .topper .link,
+.navbar .footer .link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    padding: 15px 20px;
+}
+
+.navbar .topper .link:last-child
+.navbar .footer .link:last-child {
+    margin-bottom: 0;
+}
+
+.navbar .topper .link .icon,
+.navbar .footer .link .icon {
+    min-height: 2rem;
+    min-width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: floralwhite;
+}
+
+.navbar .topper .link:hover .icon,
+.navbar .footer .link:hover .icon,
+.navbar .topper .link:hover .text,
+.navbar .footer .link:hover .text {
+    color: lightgray;
+}
+
+.navbar .topper .link .text,
+.navbar .footer .link .text {
+    font-size: larger;
+    color: floralwhite;
+    align-self: center;
+    display: none;
+    font-weight: 600;
+}
+
+.navbar:hover .topper .link .text,
+.navbar:hover .footer .link .text {
+    display: block;
+}

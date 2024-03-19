@@ -1,0 +1,56 @@
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Payapp Transactions
+{% endblock %}
+
+{% block content %}
+    
+    <div class="content">
+        <div class="transactions">
+            <h1>Account</h1>
+            <div class="section">
+                <div class="account-main-details">
+                    <div class="account-name">Louie Meeks</div>
+                    <div class="account-balance">£10000</div>
+                </div>
+                <div class="account-number">Account Number: 12345678</div>
+                <div class="account-sort-code">Sort Code: 123456</div>
+            </div>
+            <h1>Transactions</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Reference</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Prev Balance</th>
+                            <th>New Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User 1</td>
+                            <td>March 2024 Rent</td>
+                            <td>1st March 2024</td>
+                            <td class="amount-minus">-£1500</td>
+                            <td>£11500</td>
+                            <td>£10000</td>
+                        </tr>
+                        <tr>
+                            <td>User 2</td>
+                            <td>February 2024 Rent</td>
+                            <td>1st February 2024</td>
+                            <td class="amount-add">+£1500</td>
+                            <td>£10000</td>
+                            <td>£11500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
