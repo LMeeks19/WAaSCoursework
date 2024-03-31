@@ -5,13 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    
     <div class="content">
         <div class="transactions">
             <h1>Account</h1>
             <div class="section">
                 <div class="account-main-details">
-                    <div class="account-name">Louie Meeks</div>
+                    <div class="account-name">{{ user.get_full_name }}</div>
                     <div class="account-balance">£10000</div>
                 </div>
                 <div class="account-number">Account Number: 12345678</div>

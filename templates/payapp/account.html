@@ -11,7 +11,7 @@
             <h1>Account</h1>
             <div class="section">
                 <div class="account-main-details">
-                    <div class="account-name">Louie Meeks</div>
+                    <div class="account-name">{{ user.get_full_name }}</div>
                     <div class="account-balance">£10000</div>
                 </div>
                 <div class="account-number">Account Number: 12345678</div>
@@ -29,27 +29,27 @@
                     <tbody>
                         <tr>
                             <td>Username</td>
-                            <td>louie_meeks</td>
+                            <td>{{ user.username }}</td>
                         </tr>
                         <tr>
                             <td>Forename</td>
-                            <td>Louie</td>
+                            <td>{{ user.first_name }}</td>
                         </tr>
                         <tr>
                             <td>Surname</td>
-                            <td>Meeks</td>
+                            <td>{{ user.last_name }}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td>louiemeeks@icloud.com</td>
+                            <td>{{ user.email }}</td>
                         </tr>
                         <tr>
                             <td>Phone Number</td>
-                            <td>07340197183</td>
+                            <td>{{ user.phone_number }}</td>
                         </tr>
                         <tr>
                             <td>Password</td>
-                            <td>Password123!</td>
+                            <td><a href="#">Change Password</a></td>
                         </tr>
                     </tbody>
                 </table>

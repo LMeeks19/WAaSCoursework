@@ -1,0 +1,39 @@
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Payapp Admin
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="admin-container">
+            <h1>Admin</h1>
+            <div class="admin-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Admin</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {%  for user in users %}
+                            <tr>
+                                <td>{{ user.get_full_name|default:"N/A" }}</td>
+                                <td>{{ user.username|default:"N/A" }}</td>
+                                <td>{{ user.email|default:"N/A" }}</td>
+                                <td>{{ user.phone_number|default:"N/A" }}</td>
+                                <td>{{ user.is_superuser }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

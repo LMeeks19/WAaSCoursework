@@ -3,6 +3,7 @@
 @import "payment-requests.css";
 @import "transactions.css";
 @import "profile.css";
+@import "admin.css";
 
 body,html {
 	margin: 0;
@@ -12,11 +13,21 @@ body,html {
 	width: 100%;
 }
 
+.unauthorised {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .page {
 	display: flex;
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+	background-color: floralwhite;
 }
 
 .content {

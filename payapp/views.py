@@ -1,17 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from register.models import User
 
 
 def direct_payments(request):
-    return render(request, "payapp/direct-payments.html")
+    if request.user.is_authenticated:
+        return render(request, "payapp/direct-payments.html")
+    return redirect('unauthorised')
 
 
 def payment_requests(request):
-    return render(request, "payapp/payment-requests.html")
+    if request.user.is_authenticated:
+        return render(request, "payapp/payment-requests.html")
+    return redirect('unauthorised')
 
 
 def transactions(request):
-    return render(request, "payapp/transactions.html")
+    if request.user.is_authenticated:
+        return render(request, "payapp/transactions.html")
+    return redirect('unauthorised')
 
 
-def profile(request):
-    return render(request, "payapp/profile.html")
+def account(request):
+    if request.user.is_authenticated:
+        return render(request, "payapp/account.html")
+    return redirect('unauthorised')
+
+
+def admin(request):
+    if request.user.is_authenticated:
+        users = list(User.objects.all())
+        return render(request, "payapp/admin.html", {"users": users})
+    return redirect('unauthorised')
+
+
+def unauthorised(request):
+    return render(request, "payapp/unauthorised.html")

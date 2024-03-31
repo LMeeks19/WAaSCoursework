@@ -1,5 +1,4 @@
 .navbar {
-    min-width: fit-content;
     background-color: #00A3FF;
     z-index: 999;
     display: flex;
@@ -10,6 +9,12 @@
     position: fixed;
     height: 100%;
     border-right: 1px solid black;
+    width: 72px;
+    transition: width .5s ease-in-out;
+}
+
+.navbar:hover {
+    width: 200px;
 }
 
 .navbar .topper {
@@ -28,6 +33,7 @@
     gap: 20px;
     cursor: pointer;
     padding: 15px 20px;
+    width: 160px;
 }
 
 .navbar .topper .link:last-child
@@ -57,11 +63,12 @@
     font-size: larger;
     color: floralwhite;
     align-self: center;
-    display: none;
+    visibility: hidden;
     font-weight: 600;
+    transition: visibility .5s ease-in-out;
 }
 
 .navbar:hover .topper .link .text,
 .navbar:hover .footer .link .text {
-    display: block;
+    visibility: visible;
 }

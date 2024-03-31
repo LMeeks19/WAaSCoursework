@@ -1,4 +1,5 @@
 {% extends 'register/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Payapp Login
@@ -9,20 +10,10 @@
     <div class="content">
         <div class="login-container">
             <h1>Welcome Back</h1>
-            <form class="login-form">
-                <label hidden="hidden" for="username"></label>
-                <input placeholder="Username" type="text" id="username" name="username">
-                <label hidden="hidden" for="password"></label>
-                <input placeholder="Password" type="password" id="password" name="password">
-                <div class="flex-row">
-                    <div class="flex-row">
-                        <label hidden="hidden" for="remember-me"></label>
-                        <input type="checkbox" id="remember-me" name="remember-me">
-                        <span class="span">Remember me </span>
-                    </div>
-                    <span class="span blue"><a href="/webapps2024/forgotten-password">Forgot password?</a></span>
-                </div>
-                <input type="submit" value="Sign In">
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                {{ user_login|crispy }}
+                <input type="submit" value="Sign In" />
             </form>
             <div class="footer">Don't have an account? <a href="/webapps2024/register/">Sign Up</a></div>
         </div>
