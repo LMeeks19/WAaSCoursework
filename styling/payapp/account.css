@@ -21,7 +21,7 @@
             }
         }
 
-        .account-number, .account-sort-code {
+        .account-email{
             color: grey;
             font-weight: 500;
             font-size: large;
@@ -61,7 +61,7 @@
                     }
                 }
 
-                tr:nth-child(even) td {
+                tr:nth-child(odd) td {
                     background-color: lightgrey;
                 }
             }

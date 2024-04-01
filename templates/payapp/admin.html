@@ -9,6 +9,7 @@
     <div class="content">
         <div class="admin-container">
             <h1>Admin</h1>
+            <h1>Users</h1>
             <div class="admin-table">
                 <table>
                     <thead>
@@ -17,19 +18,48 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Phone Number</th>
+                        <th>Balance</th>
                         <th>Admin</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {%  for user in users %}
+                        {% for user in all_users %}
                             <tr>
-                                <td>{{ user.get_full_name|default:"N/A" }}</td>
-                                <td>{{ user.username|default:"N/A" }}</td>
-                                <td>{{ user.email|default:"N/A" }}</td>
-                                <td>{{ user.phone_number|default:"N/A" }}</td>
+                                <td>{{ user.get_full_name }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                <td>{{ user.currency }}{{ user.balance }}</td>
                                 <td>{{ user.is_superuser }}</td>
                             </tr>
                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h1>Transactions</h1>
+            <div class="admin-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Reference</th>
+                        <th>Sent On</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%  for transaction in all_transactions %}
+                        <tr>
+                            <td>{{ transaction.sender_email }}</td>
+                            <td>{{ transaction.receiver_email }}</td>
+                            <td>{{ transaction.reference }}</td>
+                            <td>{{ transaction.send_date }}</td>
+                            <td>{{ transaction.amount}}</td>
+                            <td>{{ transaction.type }}</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

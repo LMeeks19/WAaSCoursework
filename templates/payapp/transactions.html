@@ -11,10 +11,9 @@
             <div class="section">
                 <div class="account-main-details">
                     <div class="account-name">{{ user.get_full_name }}</div>
-                    <div class="account-balance">£10000</div>
+                    <div class="account-balance">{{ user.currency }}{{ user.balance }}</div>
                 </div>
-                <div class="account-number">Account Number: 12345678</div>
-                <div class="account-sort-code">Sort Code: 123456</div>
+                <div class="account-email">{{ user.email }}</div>
             </div>
             <h1>Transactions</h1>
             <div class="table-container">
@@ -25,27 +24,33 @@
                             <th>Reference</th>
                             <th>Date</th>
                             <th>Amount</th>
-                            <th>Prev Balance</th>
-                            <th>New Balance</th>
+                            <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% if user_transactions %}
+                        {%  for transaction in user_transactions %}
+                            <tr>
+                                {% if transaction.sender_email == user.email %}
+                                    <td>{{ transaction.receiver_email }}</td>
+                                {%  else %}
+                                    <td>{{ transaction.sender_email }}</td>
+                                {% endif %}
+                                <td>{{ transaction.reference }}</td>
+                                <td>{{ transaction.send_date }}</td>
+                                {% if transaction.sender_email == user.email %}
+                                    <td class="amount-minus">-{{ transaction.amount }}</td>
+                                {% else %}
+                                    <td class="amount-add">+{{ transaction.amount }}</td>
+                                {% endif %}
+                                <td>{{ transaction.type }}</td>
+                            </tr>
+                        {%  endfor %}
+                    {% else %}
                         <tr>
-                            <td>User 1</td>
-                            <td>March 2024 Rent</td>
-                            <td>1st March 2024</td>
-                            <td class="amount-minus">-£1500</td>
-                            <td>£11500</td>
-                            <td>£10000</td>
+                        <td style="text-align: center" colspan="6">No Transactions</td>
                         </tr>
-                        <tr>
-                            <td>User 2</td>
-                            <td>February 2024 Rent</td>
-                            <td>1st February 2024</td>
-                            <td class="amount-add">+£1500</td>
-                            <td>£10000</td>
-                            <td>£11500</td>
-                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
             </div>

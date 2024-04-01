@@ -2,7 +2,7 @@
 @import "direct-payments.css";
 @import "payment-requests.css";
 @import "transactions.css";
-@import "profile.css";
+@import "account.css";
 @import "admin.css";
 
 body,html {

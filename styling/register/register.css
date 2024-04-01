@@ -42,7 +42,8 @@
     .register-form input[type="text"],
     .register-form input[type="email"],
     .register-form input[type="tel"],
-    .register-form input[type="password"] {
+    .register-form input[type="password"],
+    .register-form select {
         width: 100%;
         padding: 10px;
         border: 1px solid #000;

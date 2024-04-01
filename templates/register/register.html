@@ -1,5 +1,4 @@
 {% extends 'register/base.html' %}
-{% load crispy_forms_tags %}
 
 {% block title %}
     Payapp Registration
@@ -12,7 +11,7 @@
             <h1>Create Account</h1>
             <form method="post" class="register-form">
                 {% csrf_token %}
-                {{ user_registration|crispy }}
+                {{ user_registration }}
                 <div class="button-inputs">
                     <input type="reset" value="Reset" />
                     <input type="submit" value="Sign Up" />

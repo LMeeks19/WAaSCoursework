@@ -22,7 +22,7 @@
             }
         }
 
-        .account-number, .account-sort-code {
+        .account-email {
             color: grey;
             font-weight: 500;
             font-size: large;
@@ -46,7 +46,6 @@
             thead {
                 tr {
                     th {
-                        width: 15%;
                         padding: 10px;
                         background-color: #00A3FF;
                         color: floralwhite;
@@ -60,21 +59,12 @@
                         text-align: left;
                         padding-left: 20px;
                     }
-
-                    th:nth-child(2) {
-                        width: 30%;
-                    }
-
-                    th:nth-child(4) {
-                        width: 10%;
-                    }
                 }
             }
 
             tbody {
                 tr {
                     td {
-                        width: 15%;
                         padding: 10px;
                         text-align: center;
 
@@ -91,17 +81,9 @@
                         text-align: left;
                         padding-left: 20px;
                     }
-
-                    td:nth-child(2) {
-                        width: 30%;
-                    }
-
-                    td:nth-child(4) {
-                        width: 10%;
-                    }
                 }
 
-                tr:nth-child(even) td {
+                tr:nth-child(odd) td {
                     background-color: lightgrey;
                 }
 

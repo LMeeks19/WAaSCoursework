@@ -40,6 +40,18 @@
             filter: none;
         }
 
+        .email-field {
+            width: 28% !important;
+        }
+
+        .reference-field {
+            width: 28% !important;
+        }
+
+        .amount-field {
+            width: 18% !important;
+        }
+
         input, button {
             min-width: 200px;
             width: 18%;

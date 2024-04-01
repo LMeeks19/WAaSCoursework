@@ -6,7 +6,7 @@ from .models import User
 
 class Admin(UserAdmin):
     list_display = (
-        'username', 'email', 'first_name', 'last_name', 'phone_number'
+        'username', 'email', 'first_name', 'last_name', 'phone_number', 'balance', 'currency'
     )
 
     fieldsets = (
@@ -14,7 +14,7 @@ class Admin(UserAdmin):
             'fields': ('username', 'password')
         }),
         ('Personal info', {
-            'fields': ('first_name', 'last_name', 'email', 'phone_number')
+            'fields': ('first_name', 'last_name', 'email', 'phone_number', 'balance', 'currency')
         }),
         ('Permissions', {
             'fields': (
@@ -32,7 +32,7 @@ class Admin(UserAdmin):
             'fields': ('username', 'password1', 'password2')
         }),
         ('Personal info', {
-            'fields': ('first_name', 'last_name', 'email', 'phone_number')
+            'fields': ('first_name', 'last_name', 'email', 'phone_number', 'balance', 'currency')
         }),
         ('Permissions', {
             'fields': (

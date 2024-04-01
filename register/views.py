@@ -14,7 +14,7 @@ def user_registration(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("login")
+            return redirect("transactions")
     form = RegisterForm()
     return render(request, "register/register.html", {"user_registration": form})
 
@@ -28,7 +28,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return render(request, "payapp/transactions.html")
+                return redirect("transactions")
     form = AuthenticationForm()
     return render(request, "register/login.html", {"user_login": form})
 

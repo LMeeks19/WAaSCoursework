@@ -23,27 +23,27 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        gap: 20px;
-        flex-wrap: wrap;
 
-        button {
+        input[type='submit'] {
             background-color: #00A3FF;
             cursor: pointer;
             color: floralwhite;
             font-weight: bold;
         }
 
-        button:hover {
+        input[type='submit']:hover {
             filter: none;
         }
 
-        button:active {
+        input[type='submit']:active {
             filter: drop-shadow(0 0 .5rem black);
         }
 
-        input, button {
-            min-width: 200px;
-            width: 18%;
+        input[type='submit'] {
+            width: 20% !important;
+        }
+
+        input[type='text'], input[type='email'], input[type='number'], input[type='submit'] {
             padding: 15px;
             border: 1px solid #000;
             border-radius: 5px;
