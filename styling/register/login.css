@@ -66,14 +66,6 @@
         box-sizing: border-box;
     }
 
-    .login-form input[type="checkbox"] {
-        cursor: pointer;
-    }
-
-    .login-form input[type="checkbox"]:hover {
-        filter: drop-shadow(0 0 .5rem black);
-    }
-
     .login-form input[type="submit"] {
         width: 100%;
         padding: 10px;

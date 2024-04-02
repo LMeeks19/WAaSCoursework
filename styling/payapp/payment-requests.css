@@ -67,6 +67,7 @@
         margin: 0 60px 40px 60px !important;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.1fr 3fr;
         column-gap: 60px;
         grid-template-areas:
         "sent rec"
@@ -119,7 +120,6 @@
                             &.accepted {
                                 color: green;
                             }
-
                             &.rejected {
                                 color: orangered;
                             }
@@ -148,7 +148,7 @@
                         }
                     }
 
-                    tr:nth-child(even) td {
+                    tr:nth-child(odd) td {
                         background-color: lightgrey;
                     }
 

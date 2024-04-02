@@ -46,8 +46,17 @@
                 </a>
             </div>
         </div>
-        {% block content %}
-        {% endblock %}
+            <div class="content">
+                <div class="section">
+                    <div class="account-main-details">
+                        <div class="account-name">{{ user.get_full_name }}</div>
+                    <div class="account-balance">{{ user.currency }}{{ user.balance }}</div>
+                    </div>
+                    <div class="account-email">{{ user.email }}</div>
+                </div>
+                {% block content %}
+                {% endblock %}
+            </div>
     {% else %}
         {% block unauthorised %}
         {%  endblock %}

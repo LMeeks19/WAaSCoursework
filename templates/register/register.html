@@ -10,12 +10,16 @@
         <div class="register-container">
             <h1>Create Account</h1>
             <form method="post" class="register-form">
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
                 {% csrf_token %}
                 {{ user_registration }}
-                <div class="button-inputs">
-                    <input type="reset" value="Reset" />
-                    <input type="submit" value="Sign Up" />
-                </div>
+                <input type="submit" value="Sign Up" />
             </form>
             <div class="footer">Already have an account? <a href="/webapps2024/login/">Sign In</a></div>
         </div>

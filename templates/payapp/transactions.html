@@ -5,55 +5,45 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content">
-        <div class="transactions">
-            <h1>Account</h1>
-            <div class="section">
-                <div class="account-main-details">
-                    <div class="account-name">{{ user.get_full_name }}</div>
-                    <div class="account-balance">{{ user.currency }}{{ user.balance }}</div>
-                </div>
-                <div class="account-email">{{ user.email }}</div>
-            </div>
-            <h1>Transactions</h1>
-            <div class="table-container">
-                <table>
-                    <thead>
+    <div class="transactions">
+        <h1>Transactions</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Reference</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if user_transactions %}
+                    {%  for transaction in user_transactions %}
                         <tr>
-                            <th>User</th>
-                            <th>Reference</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Type</th>
+                            {% if transaction.sender_email == user.email %}
+                                <td>{{ transaction.receiver_email }}</td>
+                            {%  else %}
+                                <td>{{ transaction.sender_email }}</td>
+                            {% endif %}
+                            <td>{{ transaction.reference }}</td>
+                            <td>{{ transaction.send_date }}</td>
+                            {% if transaction.sender_email == user.email %}
+                                <td class="amount-minus">-{{ transaction.amount }}</td>
+                            {% else %}
+                                <td class="amount-add">+{{ transaction.amount }}</td>
+                            {% endif %}
+                            <td>{{ transaction.type }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                    {% if user_transactions %}
-                        {%  for transaction in user_transactions %}
-                            <tr>
-                                {% if transaction.sender_email == user.email %}
-                                    <td>{{ transaction.receiver_email }}</td>
-                                {%  else %}
-                                    <td>{{ transaction.sender_email }}</td>
-                                {% endif %}
-                                <td>{{ transaction.reference }}</td>
-                                <td>{{ transaction.send_date }}</td>
-                                {% if transaction.sender_email == user.email %}
-                                    <td class="amount-minus">-{{ transaction.amount }}</td>
-                                {% else %}
-                                    <td class="amount-add">+{{ transaction.amount }}</td>
-                                {% endif %}
-                                <td>{{ transaction.type }}</td>
-                            </tr>
-                        {%  endfor %}
-                    {% else %}
-                        <tr>
-                        <td style="text-align: center" colspan="6">No Transactions</td>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
+                    {%  endfor %}
+                {% else %}
+                    <tr>
+                        <td style="text-align: center" colspan="5">No Transactions</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 

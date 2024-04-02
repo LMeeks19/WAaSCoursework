@@ -1,28 +1,26 @@
 {% extends 'payapp/base.html' %}
 
 {% block title %}
-    Payapp Make Payment
+    Payapp Payment Requests
 {% endblock %}
 
 {% block content %}
-
-    <div class="content">
-        <div class="pay-request-container">
-            <h1>Send Payment Request</h1>
-            <form class="request">
-                <label hidden="hidden" for="email"></label>
-                <input type="email" id="email" name="email" class="email-field" placeholder="Email" required>
-                <label hidden="hidden" for="reference"></label>
-                <input type="text" id="reference" name="reference" class="reference-field" placeholder="Reference" maxlength="50" required>
-                <label hidden="hidden" for="amount"></label>
-                <input type="number" id="amount" name="amount" class="amount-field" placeholder="Amount" min="0" max="100" required><!-- max will be updated to max out at users available funds -->
-                <button type="submit">Request</button>
-            </form>
-            <div class="tables">
-                <h1 class="sent">Sent Payment Requests</h1>
-                <h1 class="rec">Received Payment Requests</h1>
-
-                <div class="table-container sent-rec">
+    <div class="pay-request-container">
+        <h1>Send Payment Request</h1>
+        <form method="post" class="request" >
+            {%  csrf_token %}
+            <label hidden="hidden" for="email"></label>
+            <input type="email" id="email" name="email" class="email-field" placeholder="Email" required>
+            <label hidden="hidden" for="reference"></label>
+            <input type="text" id="reference" name="reference" class="reference-field" placeholder="Reference" maxlength="50" required>
+            <label hidden="hidden" for="amount"></label>
+            <input type="number" id="amount" name="amount" class="amount-field" placeholder="Amount" min="0" max="100" required><!-- max will be updated to max out at users available funds -->
+            <button type="submit">Request</button>
+        </form>
+        <div class="tables">
+            <h1 class="sent">Sent Payment Requests</h1>
+            <h1 class="rec">Received Payment Requests</h1>
+            <div class="table-container sent-rec">
                 <table>
                     <thead>
                         <tr>
@@ -34,111 +32,27 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% if user_sent_requests %}
+                        {% for sent_request in user_sent_requests %}
+                            <tr>
+                                <td>{{ sent_request.receiver_email }}</td>
+                                <td>{{ sent_request.reference }}</td>
+                                <td>{{ sent_request.send_date }}</td>
+                                <td>{{ sent_request.amount }}</td>
+                                {%  if sent_request.status == "PENDING" %}
+                                    <td class="pending">{{ sent_request.status }}</td>
+                                {%  elif sent_request.status == "REJECTED "%}
+                                    <td class="rejected">{{ sent_request.status }}</td>
+                                {%  elif sent_request.status == "CLEARED" %}
+                                    <td class="accepted">{{ sent_request.status }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
                         <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
+                            <td style="text-align: center" colspan="5">No Sent Payment Requests</td>
                         </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="accepted">ACCEPTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="rejected">REJECTED</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
-                        </tr>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td class="pending">PENDING</td>
-                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -154,29 +68,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% if user_received_requests %}
+                        {% for received_request in user_received_requests %}
+                            <tr>
+                                <td>{{ received_request.sender_email }}</td>
+                                <td>{{ received_request.reference }}</td>
+                                <td>{{ received_request.send_date }}</td>
+                                <td>{{ received_request.amount }}</td>
+                                <td>
+                                    <i class="fa-solid fa-check fa-lg accept"></i>
+                                    <i class="fa-solid fa-xmark fa-lg reject"></i>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
                         <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg accept"></i>
-                                <i class="fa-solid fa-xmark fa-lg reject"></i>
-                            </td>
+                            <td style="text-align: center" colspan="5">No Received Payment Requests</td>
                         </tr>
-                        <tr>
-                            <td>User 2</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£20</td>
-                            <td>
-                                <i class="fa-solid fa-check fa-lg accept"></i>
-                                <i class="fa-solid fa-xmark fa-lg reject"></i>
-                            </td>
-                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
-            </div>
             </div>
         </div>
     </div>

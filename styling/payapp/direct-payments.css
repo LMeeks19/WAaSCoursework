@@ -23,27 +23,40 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        gap: 20px;
+        flex-wrap: wrap;
 
-        input[type='submit'] {
+        button {
+
             background-color: #00A3FF;
             cursor: pointer;
             color: floralwhite;
             font-weight: bold;
         }
 
-        input[type='submit']:hover {
-            filter: none;
-        }
-
-        input[type='submit']:active {
+        button:hover {
             filter: drop-shadow(0 0 .5rem black);
         }
 
-        input[type='submit'] {
-            width: 20% !important;
+        button:active {
+            filter: none;
         }
 
-        input[type='text'], input[type='email'], input[type='number'], input[type='submit'] {
+        .email-field {
+            width: 28% !important;
+        }
+
+        .reference-field {
+            width: 28% !important;
+        }
+
+        .amount-field {
+            width: 18% !important;
+        }
+
+        input, button {
+            min-width: 200px;
+            width: 18%;
             padding: 15px;
             border: 1px solid #000;
             border-radius: 5px;
@@ -112,7 +125,7 @@
                         padding-left: 20px;
                     }
                 }
-                tr:nth-child(even) td {
+                tr:nth-child(odd) td {
                     background-color: lightgrey;
                 }
 

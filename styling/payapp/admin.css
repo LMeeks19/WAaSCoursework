@@ -30,6 +30,16 @@
                     td {
                         padding: 10px;
                         text-align: center;
+
+                        &.pending {
+                            color: goldenrod;
+                        }
+                        &.cleared {
+                            color: green;
+                        }
+                        &.rejected {
+                            color: orangered;
+                        }
                     }
                 }
 
