@@ -8,14 +8,10 @@
     <div class="pay-request-container">
         <h1>Send Payment Request</h1>
         <form method="post" class="request" >
-            {%  csrf_token %}
-            <label hidden="hidden" for="email"></label>
-            <input type="email" id="email" name="email" class="email-field" placeholder="Email" required>
-            <label hidden="hidden" for="reference"></label>
-            <input type="text" id="reference" name="reference" class="reference-field" placeholder="Reference" maxlength="50" required>
-            <label hidden="hidden" for="amount"></label>
-            <input type="number" id="amount" name="amount" class="amount-field" placeholder="Amount" min="0" max="100" required><!-- max will be updated to max out at users available funds -->
-            <button type="submit">Request</button>
+            {% csrf_token %}
+            {{ payment_requests_form }}
+            <input type="hidden" name="sender_email" value="{{ user.email }}">
+            <input type="submit" value="Request" />
         </form>
         <div class="tables">
             <h1 class="sent">Sent Payment Requests</h1>
@@ -41,7 +37,7 @@
                                 <td>{{ sent_request.amount }}</td>
                                 {%  if sent_request.status == "PENDING" %}
                                     <td class="pending">{{ sent_request.status }}</td>
-                                {%  elif sent_request.status == "REJECTED "%}
+                                {%  elif sent_request.status == "REJECTED" %}
                                     <td class="rejected">{{ sent_request.status }}</td>
                                 {%  elif sent_request.status == "CLEARED" %}
                                     <td class="accepted">{{ sent_request.status }}</td>
@@ -57,6 +53,13 @@
                 </table>
             </div>
             <div class="table-container rec-table">
+            {%  if messages %}
+                {%  for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div style="text-align: center; color: red; margin-bottom: 20px; font-size: large">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
                 <table>
                     <thead>
                         <tr>
@@ -75,10 +78,23 @@
                                 <td>{{ received_request.reference }}</td>
                                 <td>{{ received_request.send_date }}</td>
                                 <td>{{ received_request.amount }}</td>
-                                <td>
-                                    <i class="fa-solid fa-check fa-lg accept"></i>
-                                    <i class="fa-solid fa-xmark fa-lg reject"></i>
-                                </td>
+                                {% if received_request.status == "PENDING" %}
+                                    <td class="buttons">
+                                        <form method="get" action="/webapps2024/payment-requests/accept/">
+                                            <input type="hidden" id="transaction_id" name="transaction_id" value="{{ received_request.id }}">
+                                            <input type="hidden" id="user_id" name="user_id" value="{{ user.id }}">
+                                            <button type="submit"><i class="fa-solid fa-check fa-lg accept"></i></button>
+                                        </form>
+                                        <form method="get" action="/webapps2024/payment-requests/reject/">
+                                            <input type="hidden" id="id" name="id" value="{{ received_request.id }}">
+                                            <button><i class="fa-solid fa-xmark fa-lg reject"></i></button>
+                                        </form>
+                                    </td>
+                                {% elif received_request.status == "REJECTED" %}
+                                    <td class="rejected">{{ received_request.status }}</td>
+                                {% elif received_request.status == "CLEARED" %}
+                                    <td class="accepted">{{ received_request.status }}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     {% else %}

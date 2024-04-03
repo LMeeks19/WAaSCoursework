@@ -16,6 +16,15 @@
         border-radius: 5px;
     }
 
+    ul {
+        list-style-type: none;
+
+        li {
+            color: red;
+            text-align: center;
+        }
+    }
+
     .login-form .flex-row {
         display: flex;
         flex-direction: row;
@@ -58,6 +67,7 @@
 
     .login-form input[type="text"],
     .login-form input[type="password"] {
+        margin-top: 1px;
         width: 100%;
         padding: 10px;
         margin-bottom: 20px;

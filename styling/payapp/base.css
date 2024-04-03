@@ -35,7 +35,7 @@ body,html {
 	width: 100%;
 	background-color: floralwhite;
 	position: relative;
-	overflow: hidden;
+	overflow: auto;
 	margin-left: 72px;
 
 	.section {

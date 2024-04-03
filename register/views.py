@@ -16,7 +16,7 @@ def user_registration(request):
             user = form.save()
             login(request, user)
             return redirect("transactions")
-    return render(request, "register/register.html", {"user_registration": form})
+    return render(request, "register/register.html", {"user_registration_form": form})
 
 
 def user_login(request):
@@ -29,7 +29,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 return redirect("transactions")
-    return render(request, "register/login.html", {"user_login": form})
+    return render(request, "register/login.html", {"user_login_form": form})
 
 
 def user_logout(request):

@@ -25,18 +25,29 @@
         gap: 20px;
         flex-wrap: wrap;
 
-        button {
+        ul {
+            width: 100%;
+            margin: 0;
+            list-style-type: none;
+
+            li {
+                text-align: center;
+                color: red;
+            }
+        }
+
+        input[type='submit'] {
             background-color: #00A3FF;
             cursor: pointer;
             color: floralwhite;
             font-weight: bold;
         }
 
-        button:hover {
+        input[type='submit']:hover {
             filter: drop-shadow(0 0 .5rem black);
         }
 
-        button:active {
+        input[type='submit']:active {
             filter: none;
         }
 
@@ -52,7 +63,7 @@
             width: 18% !important;
         }
 
-        input, button {
+        input, input[type='submit'] {
             min-width: 200px;
             width: 18%;
             padding: 15px;
@@ -113,6 +124,18 @@
                             padding: 10px;
                             text-align: center;
                             font-size: large;
+
+                            &.buttons {
+                                form {
+                                    display: inline !important;
+
+                                    button {
+                                        background-color: inherit;
+                                        border: none;
+                                        font-size: 1rem;
+                                    }
+                                }
+                            }
 
                             &.pending {
                                 color: goldenrod;

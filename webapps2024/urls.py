@@ -25,6 +25,8 @@ urlpatterns = [
     path('webapps2024/', register_views.base),
     path('webapps2024/transactions/', payapp_views.transactions, name='transactions'),
     path('webapps2024/payment-requests/', payapp_views.payment_requests, name='payment-requests'),
+    path('webapps2024/payment-requests/accept/', payapp_views.payment_request_accept, name='payment-requests-accept'),
+    path('webapps2024/payment-requests/reject/', payapp_views.payment_request_reject, name='payment-requests-reject'),
     path('webapps2024/direct-payments/', payapp_views.direct_payments, name='direct-payment'),
     path('webapps2024/admin/', payapp_views.admin, name='admin'),
     path('webapps2024/account/', payapp_views.account, name='account'),
