@@ -4,6 +4,7 @@
 @import "transactions.css";
 @import "account.css";
 @import "admin.css";
+@import "admin-view-user.css";
 
 body,html {
 	margin: 0;
@@ -35,7 +36,7 @@ body,html {
 	width: 100%;
 	background-color: floralwhite;
 	position: relative;
-	overflow: auto;
+	overflow: hidden;
 	margin-left: 72px;
 
 	.section {
@@ -44,7 +45,7 @@ body,html {
 		flex-direction: column;
 		border-radius: 15px;
 		margin: 40px 60px 0 60px !important;
-		padding: 20px 40px 30px 40px;
+		padding: 20px 40px 20px 40px;
 		justify-content: space-between;
 
 		.account-main-details {

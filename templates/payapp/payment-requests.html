@@ -53,13 +53,6 @@
                 </table>
             </div>
             <div class="table-container rec-table">
-            {%  if messages %}
-                {%  for message in messages %}
-                    {% if message.tags == 'error' %}
-                        <div style="text-align: center; color: red; margin-bottom: 20px; font-size: large">{{ message }}</div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
                 <table>
                     <thead>
                         <tr>

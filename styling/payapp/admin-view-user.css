@@ -1,4 +1,16 @@
-.transactions {
+
+h1 {
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover{
+        filter: drop-shadow(0 0 .5rem black);
+    }
+}
+
+.admin-view-container {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
@@ -8,37 +20,28 @@
     grid-template-areas:
     "."
     ".";
-    height: calc(100vh - 168px);
+    height: calc(100vh - 251px);
 
     h1 {
-        border-bottom: 1px solid #000;
-        margin: 40px 60px 0 60px !important;
+        margin: 40px 60px 0 60px;
+        border-bottom: 1px solid black;
     }
 
-    .table-container {
+    .user-transactions-table {
         margin: 40px 60px 40px 60px;
         overflow: auto;
 
         table {
             width: 100%;
             border-collapse: collapse;
-            position: relative;
 
             thead {
                 tr {
                     th {
                         padding: 10px;
                         background-color: #00A3FF;
-                        color: floralwhite;
                         font-size: larger;
-                        position: sticky;
-                        z-index: 100;
-                        top: 0;
-                    }
-
-                    th:first-child, th:nth-child(2) {
-                        text-align: left;
-                        padding-left: 20px;
+                        color: floralwhite;
                     }
                 }
             }
@@ -56,15 +59,20 @@
                         &.amount-add {
                             color: green !important;
                         }
-                    }
 
-                    td:first-child, td:nth-child(2) {
-                        text-align: left;
-                        padding-left: 20px;
+                        &.pending {
+                            color: goldenrod;
+                        }
+                        &.accepted {
+                            color: green;
+                        }
+                        &.rejected {
+                            color: orangered;
+                        }
                     }
                 }
 
-                tr:nth-child(odd) td {
+                tr:nth-child(even) td {
                     background-color: lightgrey;
                 }
 
@@ -74,7 +82,6 @@
                     z-index: 100;
                 }
             }
-
         }
     }
 }

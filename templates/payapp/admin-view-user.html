@@ -1,0 +1,74 @@
+{% extends 'payapp/admin-base.html' %}
+
+{% block title %}
+    Payapp Admin View User
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin: 40px 60px 0 60px; border-bottom: 1px solid black;">
+        <a href="{% url 'admin' %}">
+            <i class="fa-solid fa-angles-left"></i>
+        </a>
+        User
+    </h1>
+    <div class="section">
+        <div class="account-main-details">
+            <div class="account-name">{{ selected_user.get_full_name }}</div>
+            <div class="account-balance">{{ selected_user.currency }}{{ selected_user.balance }}</div>
+        </div>
+        <div class="account-email">{{ selected_user.email }}</div>
+    </div>
+    <div class="admin-view-container">
+        <h1>Transactions</h1>
+        <div class="user-transactions-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Reference</th>
+                    <th>Sent On</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if user_transactions %}
+                    {%  for transaction in user_transactions %}
+                        <tr>
+                            {% if transaction.sender_email == selected_user.email %}
+                                <td>{{ transaction.receiver_email }}</td>
+                            {%  else %}
+                                <td>{{ transaction.sender_email }}</td>
+                            {% endif %}
+                            <td>{{ transaction.reference }}</td>
+                            <td>{{ transaction.send_date }}</td>
+                            {% if transaction.type == "DIRECT" %}
+                                {% if transaction.sender_email == selected_user.email %}
+                                    <td class="amount-minus">-{{ transaction.amount }}</td>
+                                {% elif transaction.receiver_email == selected_user.email  %}
+                                    <td class="amount-add">+{{ transaction.amount }}</td>
+                                {% endif %}
+                            {% elif transaction.type == "REQUEST" %}
+                                {% if transaction.sender_email == selected_user.email %}
+                                    <td class="amount-add">+{{ transaction.amount }}</td>
+                                {% elif transaction.receiver_email == selected_user.email  %}
+                                    <td class="amount-minus">-{{ transaction.amount }}</td>
+                                {% endif %}
+                            {% endif %}
+                            <td>{{ transaction.type }}</td>
+                            {%  if transaction.status == "PENDING" %}
+                                <td class="pending">{{ transaction.status }}</td>
+                            {%  elif transaction.status == "REJECTED" %}
+                                <td class="rejected">{{ transaction.status }}</td>
+                            {%  elif transaction.status == "CLEARED" %}
+                                <td class="accepted">{{ transaction.status }}</td>
+                            {% endif %}
+                        </tr>
+                    {%  endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

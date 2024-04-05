@@ -3,8 +3,8 @@ from payapp.models import Transaction, TransactionStatus, TransactionType
 from django.db.models import Q
 
 
-def get_all_cleared_transaction():
-    return list(Transaction.objects.filter(status=TransactionStatus.CLEARED))
+def get_all_transactions():
+    return list(Transaction.objects.all())
 
 
 def get_all_users():
@@ -13,6 +13,10 @@ def get_all_users():
 
 def get_user_by_email(user_email):
     return User.objects.get(email=user_email)
+
+
+def get_all_user_transactions(user_email):
+    return list(Transaction.objects.filter(Q(sender_email=user_email) | Q(receiver_email=user_email)).order_by('-send_date'))
 
 
 def get_user_cleared_transactions(user_email):
@@ -33,6 +37,10 @@ def get_user_received_payment_requests(user_email):
 
 def get_user(user_id):
     return User.objects.get(id=user_id)
+
+
+def get_user_by_username(username):
+    return User.objects.get(username=username)
 
 
 def get_transaction(transaction_id):
