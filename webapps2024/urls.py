@@ -21,7 +21,7 @@ from payapp import views as payapp_views
 
 
 urlpatterns = [
-    path('webapps2024/siteAdmin/', admin.site.urls),
+    path('', register_views.base),
     path('webapps2024/', register_views.base),
     path('webapps2024/transactions/', payapp_views.transactions, name='transactions'),
     path('webapps2024/payment-requests/', payapp_views.payment_requests, name='payment-requests'),
@@ -29,7 +29,9 @@ urlpatterns = [
     path('webapps2024/payment-requests/reject/', payapp_views.payment_request_reject, name='payment-requests/reject'),
     path('webapps2024/direct-payments/', payapp_views.direct_payments, name='direct-payments'),
     path('webapps2024/admin/', payapp_views.admin, name='admin'),
+    path('webapps2024/admin/create-user/', payapp_views.admin_create_user, name='admin-create-user'),
     path('webapps2024/admin/view/<str:id>/', payapp_views.admin_view_user, name='admin-view'),
+    path('webapps2024/admin/view/<str:id>/update-admin-status', payapp_views.change_admin_status, name='change-admin-status'),
     path('webapps2024/account/', payapp_views.account, name='account'),
     path('webapps2024/register/', register_views.user_registration, name='register'),
     path('webapps2024/login/', register_views.user_login, name='login'),

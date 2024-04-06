@@ -20,7 +20,7 @@ h1 {
     grid-template-areas:
     "."
     ".";
-    height: calc(100vh - 251px);
+    height: calc(100vh - 323px);
 
     h1 {
         margin: 40px 60px 0 60px;

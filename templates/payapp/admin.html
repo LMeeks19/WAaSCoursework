@@ -6,7 +6,13 @@
 
 {% block content %}
     <div class="admin-container">
-        <h1>Users</h1>
+        <div class="header">
+            <h1>Users</h1>
+            <a href="{% url 'admin-create-user' %}" title="Create New User/Admin">
+                <i class="fa-solid fa-circle-plus"></i>
+                New User
+            </a>
+        </div>
         <div class="admin-table">
             <table>
                 <thead>
@@ -28,7 +34,13 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.phone_number }}</td>
                             <td>{{ user.currency }}{{ user.balance }}</td>
-                            <td>{{ user.is_superuser }}</td>
+                            <td>
+                                {% if user.is_superuser %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
                             <td>
                                 <a href="{% url 'admin-view' user.id %}">
                                     <i class="fa-solid fa-eye fa-lg"></i>

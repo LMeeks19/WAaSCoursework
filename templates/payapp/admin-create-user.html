@@ -1,0 +1,26 @@
+{% extends 'payapp/admin-base.html' %}
+
+{% block title %}
+    Payapp Admin Create User
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin: 40px 60px 0 60px; border-bottom: 1px solid black;">
+        <a href="{% url 'admin' %}">
+            <i class="fa-solid fa-angles-left"></i>
+        </a>
+        Create User
+    </h1>
+    <div class="admin-create-container">
+        <form method="post" class="create-form">
+            {% csrf_token %}
+            {{ create_user_form }}
+            <label for="admin">Admin:</label>
+            <select type="select" id="admin" name="admin" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <input type="submit" value="Create" />
+        </form>
+    </div>
+{% endblock %}

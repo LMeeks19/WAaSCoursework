@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from payapp.forms import DirectPaymentForm, PaymentRequestForm
-from .server import get_all_user_transactions, get_user_sent_direct_payments, get_all_users, get_user_sent_payment_requests, get_user_received_payment_requests, get_user_cleared_transactions, get_transaction, get_user
+from .server import get_all_user_transactions, get_user_sent_direct_payments, get_all_users, \
+    get_user_sent_payment_requests, get_user_received_payment_requests, get_user_cleared_transactions, get_transaction, \
+    get_user
 from .transaction import create_direct_payment, create_payment_request, accept_payment_request, reject_payment_request
 from django.contrib import messages
 from django.db import transaction, OperationalError
+from register.forms import RegisterForm
+from register.models import User
 
 
 def direct_payments(request):
@@ -13,8 +17,12 @@ def direct_payments(request):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        create_direct_payment(sender_email=request.user.email, receiver_email=form.cleaned_data.get('receiver_email'), reference=form.cleaned_data.get('reference'), amount=form.cleaned_data.get('amount'))
-                        messages.success(request, 'Direct Payment sent to {0}'.format(form.cleaned_data.get('receiver_email')))
+                        create_direct_payment(sender_email=request.user.email,
+                                              receiver_email=form.cleaned_data.get('receiver_email'),
+                                              reference=form.cleaned_data.get('reference'),
+                                              amount=form.cleaned_data.get('amount'))
+                        messages.success(request,
+                                         'Direct Payment sent to {0}'.format(form.cleaned_data.get('receiver_email')))
                 except OperationalError:
                     messages.error(request, "Unable to send Direct Payment of this amount anymore")
                 return redirect('direct-payments')
@@ -29,7 +37,10 @@ def payment_requests(request):
         form = PaymentRequestForm(request.POST or None)
         if request.method == "POST":
             if form.is_valid():
-                create_payment_request(sender_email=request.user.email, receiver_email=form.cleaned_data.get('receiver_email'), reference=form.cleaned_data.get('reference'), amount=form.cleaned_data.get('amount'))
+                create_payment_request(sender_email=request.user.email,
+                                       receiver_email=form.cleaned_data.get('receiver_email'),
+                                       reference=form.cleaned_data.get('reference'),
+                                       amount=form.cleaned_data.get('amount'))
                 messages.success(request, 'Payment Request sent to {0}'.format(form.cleaned_data.get('receiver_email')))
                 return redirect('payment-requests')
         user_sent_requests = get_user_sent_payment_requests(request.user.email)
@@ -82,16 +93,77 @@ def account(request):
 
 def admin(request):
     if request.user.is_authenticated:
-        all_users = get_all_users()
-        return render(request, "payapp/admin.html", {"all_users": all_users})
+        if request.user.is_superuser:
+            all_users = get_all_users()
+            return render(request, "payapp/admin.html", {"all_users": all_users})
+        else:
+            messages.info(request, 'You do not have access to this page')
+            return redirect('transactions')
+    return redirect('unauthorised')
+
+
+def admin_create_user(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            form = RegisterForm(request.POST or None)
+            if request.method == "POST":
+                try:
+                    with transaction.atomic():
+                        if form.is_valid():
+                            is_admin = request.POST.get('admin') == "yes"
+                            user = User(username=form.cleaned_data.get('username'),
+                                        first_name=form.cleaned_data.get('first_name'),
+                                        last_name=form.cleaned_data.get('last_name'),
+                                        email=form.cleaned_data.get('email'),
+                                        phone_number=form.cleaned_data.get('phone_number'),
+                                        currency=form.cleaned_data.get('currency'),
+                                        password=form.cleaned_data.get('password1'),
+                                        )
+                            if is_admin:
+                                user.create_admin()
+                                messages.success(request, "Admin: {0} created".format(user.username))
+                            else:
+                                user.create_user()
+                                messages.success(request, "User: {0} created".format(user.username))
+                        return redirect('admin')
+                except OperationalError:
+                    messages.error(request, "Unable to create this user/admin anymore")
+            return render(request, "payapp/admin-create-user.html", {"create_user_form": form})
+        else:
+            messages.info(request, 'You do not have access to this page')
+            return redirect('transactions')
     return redirect('unauthorised')
 
 
 def admin_view_user(request, id):
     if request.user.is_authenticated:
-        user = get_user(user_id=id)
-        user_transactions = get_all_user_transactions(user_email=user.email)
-        return render(request, "payapp/admin-view-user.html", {"selected_user": user, "user_transactions": user_transactions})
+        if request.user.is_superuser:
+            user = get_user(user_id=id)
+            user_transactions = get_all_user_transactions(user_email=user.email)
+            return render(request, "payapp/admin-view-user.html",
+                          {"selected_user": user, "user_transactions": user_transactions})
+        else:
+            messages.info(request, 'You do not have access to this page')
+            return redirect('transactions')
+    return redirect('unauthorised')
+
+
+def change_admin_status(request, id):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            user = get_user(user_id=id)
+            try:
+                with transaction.atomic():
+                    user.is_superuser = not user.is_superuser
+                    user.is_staff = not user.is_staff
+                    user.save()
+                    messages.info(request, 'Admin status updated for {0}'.format(user.username))
+                    return redirect('/webapps2024/admin/view/{0}'.format(user.id))
+            except OperationalError:
+                messages.info(request, 'Unable to update admin status for {0}'.format(user.username))
+        else:
+            messages.info(request, 'You do not have access to this page')
+            return redirect('transactions')
     return redirect('unauthorised')
 
 

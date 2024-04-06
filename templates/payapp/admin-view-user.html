@@ -16,7 +16,22 @@
             <div class="account-name">{{ selected_user.get_full_name }}</div>
             <div class="account-balance">{{ selected_user.currency }}{{ selected_user.balance }}</div>
         </div>
-        <div class="account-email">{{ selected_user.email }}</div>
+        <div class="account-username">Username: {{ selected_user.username }}</div>
+        <div class="account-email">Email: {{ selected_user.email }}</div>
+        <div class="account-phone-number">Phone Number: {{ selected_user.phone_number }}</div>
+        <div class="account-admin">
+            Admin:
+            {% if selected_user.is_superuser %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+            {% if selected_user.id != user.id  %}
+                <a class="change-admin-status" title="Update Admin Status" href="/webapps2024/admin/view/{{ selected_user.id }}/update-admin-status">
+                    <i class="fa-solid fa-rotate"></i>
+                </a>
+            {% endif %}
+        </div>
     </div>
     <div class="admin-view-container">
         <h1>Transactions</h1>

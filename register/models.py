@@ -14,3 +14,28 @@ class User(AbstractUser):
     phone_number = PhoneNumberField(blank=True)
     balance = models.IntegerField(default=10000)
     currency = models.CharField(default='£', max_length=8)
+
+    def create_user(self):
+        user = User(username=self.username,
+                    first_name=self.first_name,
+                    last_name=self.last_name,
+                    email=self.email,
+                    phone_number=self.phone_number,
+                    currency=self.currency,
+                    password=self.password,
+                    is_superuser=False,
+                    is_staff=False)
+        user.save()
+
+    def create_admin(self):
+        user = User(username=self.username,
+                    first_name=self.first_name,
+                    last_name=self.last_name,
+                    email=self.email,
+                    phone_number=self.phone_number,
+                    currency=self.currency,
+                    password=self.password,
+                    is_superuser=True,
+                    is_staff=True)
+        user.save()
+

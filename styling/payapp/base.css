@@ -5,6 +5,7 @@
 @import "account.css";
 @import "admin.css";
 @import "admin-view-user.css";
+@import "admin-create-user.css";
 
 body,html {
 	margin: 0;
@@ -39,6 +40,13 @@ body,html {
 	overflow: hidden;
 	margin-left: 72px;
 
+	.tooltip:hover .tooltip-message {
+		position: absolute;
+		z-index: 20;
+		background-color: grey;
+		display: block;
+	}
+
 	.section {
 		box-shadow: 0 0 20px -5px #000;
 		display: flex;
@@ -58,10 +66,26 @@ body,html {
 			}
 		}
 
-		.account-email{
+		.account-email, .account-phone-number, .account-username, .account-admin {
 			color: grey;
 			font-weight: 500;
 			font-size: large;
+
+			.change-admin-status {
+				background-color: inherit;
+				color: inherit;
+				border: none;
+				font-size: 1rem;
+			}
+
+			i {
+				cursor: pointer;
+			}
+
+			i:hover {
+				filter: drop-shadow(0 0 .5rem black);
+
+			}
 		}
 	}
 }

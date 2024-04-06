@@ -1,18 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, Currencies
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 class RegisterForm(UserCreationForm):
-    username = forms.CharField(required=True)
-    first_name = forms.CharField(required=True, label="Forename")
-    last_name = forms.CharField(required=True, label="Surname")
-    email = forms.EmailField(required=True)
-    phone_number = PhoneNumberField()
-    currency = forms.ChoiceField(required=True, choices=Currencies.choices)
-    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password'}))
-    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'autocomplete': 'off'}))
+    first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Forename', 'autocomplete': 'off'}))
+    last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Surname', 'autocomplete': 'off'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email', 'autocomplete': 'off'}))
+    phone_number = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number', 'autocomplete': 'off'}))
+    currency = forms.ChoiceField(required=True, choices=Currencies.choices, widget=forms.Select(attrs={'autocomplete': 'off'}))
+    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'autocomplete': 'off'}))
+    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'autocomplete': 'off'}))
 
     class Meta:
         model = User
