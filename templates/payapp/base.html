@@ -75,12 +75,10 @@
                 {% block content %}
                 {% endblock %}
             </div>
-    {% else %}
-        {% block unauthorised %}
-        {%  endblock %}
-    {% endif %}
-</div>
-
-
-</body>
+        {% else %}
+            {% block unauthorised %}
+            {%  endblock %}
+        {% endif %}
+        </div>
+    </body>
 </html>
