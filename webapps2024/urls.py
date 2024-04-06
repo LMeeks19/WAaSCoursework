@@ -15,9 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from register import views as register_views
 from payapp import views as payapp_views
+from django.views.static import serve
+from django.conf import settings
 from webapps2024.settings import DEBUG
 
 urlpatterns = [
@@ -41,4 +43,7 @@ urlpatterns = [
 
 if DEBUG:
     urlpatterns.append(path('webapps2024/admin/develop/', admin.site.urls, name='admin-develop'))
+else:
+    urlpatterns.append(re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})),
+    urlpatterns.append(re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})),
 
