@@ -8,10 +8,18 @@
     <div class="admin-container">
         <div class="header">
             <h1>Users</h1>
-            <a href="{% url 'admin-create-user' %}" title="Create New User/Admin">
-                <i class="fa-solid fa-circle-plus"></i>
-                New User
-            </a>
+            <div style="display:flex;gap: 20px">
+                {% if dev_window_active %}
+                    <a href="{% url 'admin-develop' %}" title="Admin Develop Window">
+                        <i class="fa-solid fa-code"></i>
+                        Develop
+                    </a>
+                {% endif %}
+                <a href="{% url 'admin-create-user' %}" title="Create New User/Admin">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    New User
+                </a>
+            </div>
         </div>
         <div class="admin-table">
             <table>

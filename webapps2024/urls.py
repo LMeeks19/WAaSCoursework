@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from register import views as register_views
 from payapp import views as payapp_views
-
+from webapps2024.settings import DEBUG
 
 urlpatterns = [
     path('', register_views.base),
@@ -38,3 +38,7 @@ urlpatterns = [
     path('webapps2024/logout/', register_views.user_logout, name='logout'),
     path('webapps2024/unauthorised/', payapp_views.unauthorised, name='unauthorised')
 ]
+
+if DEBUG:
+    urlpatterns.append(path('webapps2024/admin/develop/', admin.site.urls, name='admin-develop'))
+

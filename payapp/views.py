@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.db import transaction, OperationalError
 from register.forms import RegisterForm
 from register.models import User
+from webapps2024.settings import DEBUG
 
 
 def direct_payments(request):
@@ -95,7 +96,7 @@ def admin(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             all_users = get_all_users()
-            return render(request, "payapp/admin.html", {"all_users": all_users})
+            return render(request, "payapp/admin.html", {"all_users": all_users, "dev_window_active": DEBUG})
         else:
             messages.info(request, 'You do not have access to this page')
             return redirect('transactions')
