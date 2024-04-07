@@ -22,13 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3))h*rziq=t57x6w($-60&dr@s)6unqef_#xxu=7r+46x$&b1h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,7 +125,6 @@ else:
     ]
 
 STATIC_URL = 'static/'
-
 
 
 # Default primary key field type

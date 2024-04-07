@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Currencies
+from payapp.converter import Currencies
+from .models import User
 
 
 class RegisterForm(UserCreationForm):
@@ -19,39 +20,22 @@ class RegisterForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if username is None:
-            self.add_error("username", "Username cannot be left blank")
-        elif User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             self.add_error("username", "Username already in use")
         return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if email is None:
-            self.add_error("email", "Email cannot be left blank")
-        elif User.objects.filter(email=email).exists():
+
+        if User.objects.filter(email=email).exists():
             self.add_error("email", "Email already in use")
         return email
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get('phone_number')
-        if phone_number is None:
-            self.add_error("phone_number", "Phone Number cannot be left blank")
-        elif User.objects.filter(phone_number=phone_number).exists():
+        if User.objects.filter(phone_number=phone_number).exists():
             self.add_error("phone_number", "Phone Number already in use")
         return phone_number
-
-    def clean_first_name(self):
-        first_name = self.cleaned_data.get('first_name')
-        if first_name is None:
-            self.add_error("first_name", "Forename cannot be left blank")
-        return first_name
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data.get('last_name')
-        if last_name is None:
-            self.add_error("last_name", "Surname cannot be left blank")
-        return last_name
 
     def clean_password1(self):
         password1 = self.cleaned_data.get('password1')

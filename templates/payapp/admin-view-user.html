@@ -14,7 +14,7 @@
     <div class="section">
         <div class="account-main-details">
             <div class="account-name">{{ selected_user.get_full_name }}</div>
-            <div class="account-balance">{{ selected_user.currency }}{{ selected_user.balance }}</div>
+            <div class="account-balance">{{ selected_user.get_currency_symbol }}{{ selected_user.balance }}</div>
         </div>
         <div class="account-username">Username: {{ selected_user.username }}</div>
         <div class="account-email">Email: {{ selected_user.email }}</div>

@@ -40,3 +40,14 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("login")
+
+
+def unauthorised(request):
+    return render(request, "register/unauthorised.html")
+
+
+def not_found(request, exception):
+    return render(request, "register/not-found.html", status=404)
+
+
+

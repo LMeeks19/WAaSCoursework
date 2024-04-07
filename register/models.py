@@ -1,19 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import models
-from django.utils.translation import gettext_lazy as _
-
-
-class Currencies(models.TextChoices):
-    GBP = '£', _('GBP £')
-    EUR = '€', _('EUR €')
-    USD = '$', _('USD $')
+from payapp.converter import Currencies
 
 
 class User(AbstractUser):
     phone_number = PhoneNumberField(blank=True)
-    balance = models.IntegerField(default=10000)
-    currency = models.CharField(default='£', max_length=8)
+    balance = models.IntegerField(default=1000)
+    currency = models.CharField(default='GBP', max_length=8)
 
     def create_user(self):
         user = User(username=self.username,
@@ -38,4 +32,12 @@ class User(AbstractUser):
                     is_superuser=True,
                     is_staff=True)
         user.save()
+
+    def get_currency_symbol(self):
+        if self.currency == Currencies.GBP:
+            return "£"
+        if self.currency == Currencies.EUR:
+            return "€"
+        if self.currency == Currencies.USD:
+            return "$"
 

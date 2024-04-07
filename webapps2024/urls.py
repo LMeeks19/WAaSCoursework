@@ -15,12 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from register import views as register_views
 from payapp import views as payapp_views
 from django.views.static import serve
 from django.conf import settings
 from webapps2024.settings import DEBUG
+
+handler404 = 'register.views.not_found'
 
 urlpatterns = [
     path('', register_views.base),
@@ -38,7 +40,8 @@ urlpatterns = [
     path('webapps2024/register/', register_views.user_registration, name='register'),
     path('webapps2024/login/', register_views.user_login, name='login'),
     path('webapps2024/logout/', register_views.user_logout, name='logout'),
-    path('webapps2024/unauthorised/', payapp_views.unauthorised, name='unauthorised')
+    path('webapps2024/unauthorised/', register_views.unauthorised, name='unauthorised'),
+    path('webapps2024/conversion/', include('rest_framework.urls'))
 ]
 
 if DEBUG:

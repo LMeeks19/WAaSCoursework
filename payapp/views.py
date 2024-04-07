@@ -166,7 +166,3 @@ def change_admin_status(request, id):
             messages.info(request, 'You do not have access to this page')
             return redirect('transactions')
     return redirect('unauthorised')
-
-
-def unauthorised(request):
-    return render(request, "payapp/unauthorised.html")
