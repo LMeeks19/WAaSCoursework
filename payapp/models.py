@@ -18,5 +18,5 @@ class Transaction(models.Model):
     reference = models.CharField(max_length=50)
     amount = models.IntegerField()
     send_date = models.DateTimeField()
-    status = models.CharField(default="PENDING", max_length=8)
-    type = models.CharField(default="DIRECT", max_length=7)
+    status = models.CharField(max_length=8)
+    type = models.CharField(max_length=7)

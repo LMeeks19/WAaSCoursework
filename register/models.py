@@ -7,7 +7,7 @@ from payapp.converter import Currencies
 class User(AbstractUser):
     phone_number = PhoneNumberField(blank=True)
     balance = models.IntegerField(default=1000)
-    currency = models.CharField(default='GBP', max_length=8)
+    currency = models.CharField(max_length=8)
 
     def create_user(self):
         user = User(username=self.username,
