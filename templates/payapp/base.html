@@ -1,3 +1,5 @@
+<!-- This page is the default template all other pages that are accessible to all authenticated users are based off -->
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -13,6 +15,7 @@
     <script src="{% static 'toastr.js' %}" type="text/javascript"></script>
     <script>
         {% if messages %}
+            <!-- This section of javascript is used to display toast messages to the user when an action is performed -->
             document.addEventListener("DOMContentLoaded", function(event) {
                 toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
                     "progressBar": true, "positionClass": "toast-bottom-right", "preventDuplicates": true,

@@ -22,8 +22,10 @@ from django.views.static import serve
 from django.conf import settings
 from webapps2024.settings import DEBUG
 
+# Handles page not found errors when DEBUG is set to false
 handler404 = 'register.views.not_found'
 
+# All default url patterns that will always be included
 urlpatterns = [
     path('', register_views.base),
     path('webapps2024/', register_views.base),
@@ -44,6 +46,8 @@ urlpatterns = [
     path('webapps2024/conversion/', include('rest_framework.urls'))
 ]
 
+# Depending on if DEBUG is True or False will determine if the dev window to the in-built Django admin page is available to site admins
+# As well as if the paths for the styling needs to be re pathed
 if DEBUG:
     urlpatterns.append(path('webapps2024/admin/develop/', admin.site.urls, name='admin-develop'))
 else:

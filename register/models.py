@@ -19,6 +19,7 @@ class User(AbstractUser):
                     password=self.password,
                     is_superuser=False,
                     is_staff=False)
+        user.set_password(user.password)
         user.save()
 
     def create_admin(self):
@@ -31,6 +32,7 @@ class User(AbstractUser):
                     password=self.password,
                     is_superuser=True,
                     is_staff=True)
+        user.set_password(user.password)
         user.save()
 
     def get_currency_symbol(self):
