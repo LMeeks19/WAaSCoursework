@@ -8,7 +8,7 @@ import phonenumber_field.modelfields
 from django.contrib.auth import get_user_model
 
 
-# Seeds and admin in the database when the table is created
+# Seeds an admin in the database when the table is created
 def seed_admin(apps, schema_editor):
     User = get_user_model()
     if not User.objects.filter(username='admin1').exists():
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(auto_created=True, default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(auto_created=True, default=django.utils.timezone.now, verbose_name='date joined')),
                 ('phone_number', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None)),
-                ('balance', models.IntegerField(default=1000)),
+                ('balance', models.FloatField()),
                 ('currency', models.CharField(max_length=8)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),

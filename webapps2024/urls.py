@@ -15,12 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 from register import views as register_views
 from payapp import views as payapp_views
 from django.views.static import serve
 from django.conf import settings
 from webapps2024.settings import DEBUG
+from payapp import serializers
 
 # Handles page not found errors when DEBUG is set to false
 handler404 = 'register.views.not_found'
@@ -43,7 +44,8 @@ urlpatterns = [
     path('webapps2024/login/', register_views.user_login, name='login'),
     path('webapps2024/logout/', register_views.user_logout, name='logout'),
     path('webapps2024/unauthorised/', register_views.unauthorised, name='unauthorised'),
-    path('webapps2024/conversion/', include('rest_framework.urls'))
+    path('webapps2024/conversion/<str:from_currency>/<str:to_currency>/', serializers.Conversion.as_view())
+
 ]
 
 # Depending on if DEBUG is True or False will determine if the dev window to the in-built Django admin page is available to site admins

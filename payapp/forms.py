@@ -9,7 +9,7 @@ class DirectPaymentForm(forms.Form):
         attrs={'placeholder': 'Email', 'class': 'email-field', 'autocomplete': 'off'}))
     reference = forms.CharField(required=True, max_length=50, label=False, widget=forms.TextInput(
         attrs={'placeholder': 'Reference', 'class': 'reference-field', 'autocomplete': 'off'}))
-    amount = forms.IntegerField(required=True, label=False, widget=forms.NumberInput(
+    amount = forms.FloatField(required=True, label=False, widget=forms.NumberInput(
         attrs={'placeholder': 'Amount', 'class': 'amount-field', 'autocomplete': 'off'}))
 
     def clean_receiver_email(self):
@@ -38,7 +38,7 @@ class PaymentRequestForm(forms.Form):
         attrs={'placeholder': 'Email', 'class': 'email-field', 'autocomplete': 'off'}))
     reference = forms.CharField(required=True, max_length=50, label=False, widget=forms.TextInput(
         attrs={'placeholder': 'Reference', 'class': 'reference-field', 'autocomplete': 'off'}))
-    amount = forms.IntegerField(required=True, label=False, widget=forms.NumberInput(
+    amount = forms.FloatField(required=True, label=False, widget=forms.NumberInput(
         attrs={'placeholder': 'Amount', 'class': 'amount-field', 'autocomplete': 'off'}))
 
     def clean_receiver_email(self):

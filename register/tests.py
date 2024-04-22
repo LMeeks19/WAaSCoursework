@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .forms import RegisterForm
 from .models import User
-from payapp.converter import Currencies
+from payapp.serializers import Currencies
 
 
 class TestRegisterForm(TestCase):
@@ -11,7 +11,7 @@ class TestRegisterForm(TestCase):
                     last_name='1',
                     email='test_user_1@email.com',
                     phone_number='07123456789',
-                    currency='£',
+                    currency='GBP',
                     password='Password123!'
                     )
         user.create_user()
@@ -62,7 +62,7 @@ class TestRegisterForm(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_is_valid_currency_validation(self):
-        form = RegisterForm(data={'currency': 'GBP'})
+        form = RegisterForm(data={'currency': Currencies.GBP})
         currency = form.data.get('currency')
         self.assertTrue((Currencies.EUR == currency) or (Currencies.GBP == currency) or (Currencies.USD == currency))
         self.assertFalse(form.is_valid())

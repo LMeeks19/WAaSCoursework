@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from payapp.converter import Currencies
 from .models import User
+from payapp.serializers import get_conversion_rate, convert_funds, Currencies
 
 
 class RegisterForm(UserCreationForm):
@@ -13,10 +13,11 @@ class RegisterForm(UserCreationForm):
     currency = forms.ChoiceField(required=True, choices=Currencies.choices, widget=forms.Select(attrs={'autocomplete': 'off'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'autocomplete': 'off'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'autocomplete': 'off'}))
+    balance = forms.FloatField(required=False, widget=forms.HiddenInput())
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "username", "email", "phone_number", "currency", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "email", "phone_number", "currency", "password1", "password2", "balance")
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -52,3 +53,10 @@ class RegisterForm(UserCreationForm):
         if any(char.isspace() for char in password1):
             self.add_error("password1", "Password must not contain any whitespace characters")
         return password1
+
+    def clean_balance(self):
+        balance = 1000
+        if not self.cleaned_data['currency'] == Currencies.GBP:
+            conversion_rate = get_conversion_rate(from_currency=Currencies.GBP, to_currency=self.cleaned_data['currency'])
+            balance = convert_funds(balance, conversion_rate)
+        return balance

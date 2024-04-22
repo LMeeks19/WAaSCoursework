@@ -62,15 +62,15 @@
                             <td>{{ transaction.send_date }}</td>
                             {% if transaction.type == "DIRECT" %}
                                 {% if transaction.sender_email == selected_user.email %}
-                                    <td class="amount-minus">-{{ transaction.amount }}</td>
+                                    <td class="amount-minus">-{{ transaction.get_sender_currency_symbol }}{{ transaction.sender_amount }}</td>
                                 {% elif transaction.receiver_email == selected_user.email  %}
-                                    <td class="amount-add">+{{ transaction.amount }}</td>
+                                    <td class="amount-add">+{{ transaction.get_receiver_currency_symbol }}{{ transaction.receiver_amount }}</td>
                                 {% endif %}
                             {% elif transaction.type == "REQUEST" %}
                                 {% if transaction.sender_email == selected_user.email %}
-                                    <td class="amount-add">+{{ transaction.amount }}</td>
+                                    <td class="amount-add">+{{ transaction.get_sender_currency_symbol }}{{ transaction.sender_amount }}</td>
                                 {% elif transaction.receiver_email == selected_user.email  %}
-                                    <td class="amount-minus">-{{ transaction.amount }}</td>
+                                    <td class="amount-minus">-{{ transaction.get_receiver_currency_symbol }}{{ transaction.receiver_amount }}</td>
                                 {% endif %}
                             {% endif %}
                             <td>{{ transaction.type }}</td>

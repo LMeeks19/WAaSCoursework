@@ -4,7 +4,7 @@
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
         <language minSize="22" name="Style Sheets" />
-        <language minSize="49" name="Python" />
+        <language minSize="94" name="Python" />
       </Languages>
     </inspection_tool>
     <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
@@ -19,6 +19,7 @@
       <option name="ignoredErrors">
         <list>
           <option value="N806" />
+          <option value="N803" />
         </list>
       </option>
     </inspection_tool>
@@ -29,5 +30,6 @@
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="PyTestUnpassedFixtureInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

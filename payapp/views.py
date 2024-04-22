@@ -56,7 +56,7 @@ def payment_request_accept(request):
             transaction_id = request.GET.get("transaction_id")
             retrieved_transaction = get_transaction(transaction_id)
             user = get_user(request.GET.get("user_id"))
-            if user.balance >= retrieved_transaction.amount:
+            if user.balance >= retrieved_transaction.receiver_amount:
                 try:
                     with transaction.atomic():
                         accept_payment_request(retrieved_transaction.id)

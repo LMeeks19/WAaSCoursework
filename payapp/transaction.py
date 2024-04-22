@@ -1,48 +1,84 @@
 from .server import get_user_by_email
 from .models import Transaction, TransactionStatus, TransactionType
 from datetime import datetime
+from .serializers import get_conversion_rate, convert_funds
 
 
 def create_direct_payment(sender_email, receiver_email, reference, amount):
+    sender = get_user_by_email(sender_email)
+    receiver = get_user_by_email(receiver_email)
+
+    sender_amount = amount
+    receiver_amount = amount
+    if not sender.currency == receiver.currency:
+        conversion_rate = get_conversion_rate(sender.currency, receiver.currency)
+        receiver_amount = convert_funds(amount, conversion_rate)
+
     transaction = Transaction(
-        sender_email=sender_email,
-        receiver_email=receiver_email,
+        sender_email=sender.email,
+        sender_currency=sender.currency,
+        sender_amount=round(sender_amount, 2),
+        receiver_email=receiver.email,
+        receiver_currency=receiver.currency,
+        receiver_amount=round(receiver_amount, 2),
         reference=reference,
-        amount=amount,
-        send_date=datetime.utcnow(),
         status=TransactionStatus.CLEARED,
         type=TransactionType.DIRECT
     )
-    update_user_balances(user_to_decrease_email=transaction.sender_email, user_to_increase_email=transaction.receiver_email, transaction_amount=transaction.amount)
+    update_user_balances_direct(transaction)
     transaction.save()
 
 
-def update_user_balances(user_to_decrease_email, user_to_increase_email, transaction_amount):
-    user_to_decrease = get_user_by_email(user_to_decrease_email)
-    user_to_increase = get_user_by_email(user_to_increase_email)
-    user_to_decrease.balance = user_to_decrease.balance - transaction_amount
-    user_to_increase.balance = user_to_increase.balance + transaction_amount
-    user_to_increase.save()
-    user_to_decrease.save()
-
-
 def create_payment_request(sender_email, receiver_email, reference, amount):
+    sender = get_user_by_email(sender_email)
+    receiver = get_user_by_email(receiver_email)
+
+    sender_amount = amount
+    receiver_amount = amount
+    if not sender.currency == receiver.currency:
+        conversion_rate = get_conversion_rate(sender.currency, receiver.currency)
+        receiver_amount = convert_funds(amount, conversion_rate)
+
     transaction = Transaction(
-        sender_email=sender_email,
-        receiver_email=receiver_email,
+        sender_email=sender.email,
+        sender_currency=sender.currency,
+        sender_amount=round(sender_amount, 2),
+        receiver_email=receiver.email,
+        receiver_currency=receiver.currency,
+        receiver_amount=round(receiver_amount, 2),
         reference=reference,
-        amount=amount,
-        send_date=datetime.utcnow(),
         status=TransactionStatus.PENDING,
         type=TransactionType.REQUEST
     )
     transaction.save()
 
 
+def update_user_balances_direct(transaction):
+    sender = get_user_by_email(transaction.sender_email)
+    receiver = get_user_by_email(transaction.receiver_email)
+
+    sender.balance = sender.balance - transaction.sender_amount
+    receiver.balance = receiver.balance + transaction.receiver_amount
+
+    sender.save()
+    receiver.save()
+
+
+def update_user_balances_request(transaction):
+    sender = get_user_by_email(transaction.sender_email)
+    receiver = get_user_by_email(transaction.receiver_email)
+
+    sender.balance = sender.balance + transaction.sender_amount
+    receiver.balance = receiver.balance - transaction.receiver_amount
+
+    sender.save()
+    receiver.save()
+
+
 def accept_payment_request(transaction_id):
     transaction = Transaction.objects.get(id=transaction_id)
+    update_user_balances_request(transaction)
     transaction.status = TransactionStatus.CLEARED
-    update_user_balances(user_to_decrease_email=transaction.receiver_email, user_to_increase_email=transaction.sender_email, transaction_amount=transaction.amount)
     transaction.save()
 
 
