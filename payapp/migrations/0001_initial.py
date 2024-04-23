@@ -5,7 +5,7 @@ import django.utils.timezone
 
 seed_exchange_rates = "INSERT INTO payapp_exchangerates (from_currency, to_currency, conversion_rate) VALUES ('USD','GBP', 0.81), ('GBP','USD', 1.23), ('EUR','GBP', 0.86), ('GBP','EUR', 1.16), ('USD','EUR', 0.94), ('EUR','USD', 1.06)"
 
-unseed_exchange_rates = ""
+un_seed_exchange_rates = ""
 
 
 class Migration(migrations.Migration):
@@ -42,5 +42,5 @@ class Migration(migrations.Migration):
             ],
         ),
 
-        migrations.RunSQL(sql=seed_exchange_rates, reverse_sql=unseed_exchange_rates)
+        migrations.RunSQL(sql=seed_exchange_rates, reverse_sql=un_seed_exchange_rates)
     ]

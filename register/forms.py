@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
-from payapp.serializers import get_conversion_rate, convert_funds, Currencies
+from payapp.converter import get_conversion_rate, convert_funds, Currencies, is_valid_currency
 
 
 class RegisterForm(UserCreationForm):
@@ -56,7 +56,10 @@ class RegisterForm(UserCreationForm):
 
     def clean_balance(self):
         balance = 1000
-        if not self.cleaned_data['currency'] == Currencies.GBP:
-            conversion_rate = get_conversion_rate(from_currency=Currencies.GBP, to_currency=self.cleaned_data['currency'])
+        to_currency = Currencies.GBP
+        if is_valid_currency(self.data['currency']):
+            to_currency = self.cleaned_data['currency']
+        if not to_currency == Currencies.GBP:
+            conversion_rate = get_conversion_rate(from_currency=Currencies.GBP, to_currency=to_currency)
             balance = convert_funds(balance, conversion_rate)
         return balance

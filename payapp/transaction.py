@@ -1,7 +1,6 @@
 from .server import get_user_by_email
 from .models import Transaction, TransactionStatus, TransactionType
-from datetime import datetime
-from .serializers import get_conversion_rate, convert_funds
+from .converter import get_conversion_rate, convert_funds
 
 
 def create_direct_payment(sender_email, receiver_email, reference, amount):
@@ -11,8 +10,10 @@ def create_direct_payment(sender_email, receiver_email, reference, amount):
     sender_amount = amount
     receiver_amount = amount
     if not sender.currency == receiver.currency:
-        conversion_rate = get_conversion_rate(sender.currency, receiver.currency)
-        receiver_amount = convert_funds(amount, conversion_rate)
+        result = get_conversion_rate(sender.currency, receiver.currency)
+        if not isinstance(result, float):
+            return result
+        receiver_amount = convert_funds(amount, result)
 
     transaction = Transaction(
         sender_email=sender.email,
@@ -27,6 +28,7 @@ def create_direct_payment(sender_email, receiver_email, reference, amount):
     )
     update_user_balances_direct(transaction)
     transaction.save()
+    return transaction
 
 
 def create_payment_request(sender_email, receiver_email, reference, amount):
@@ -36,8 +38,10 @@ def create_payment_request(sender_email, receiver_email, reference, amount):
     sender_amount = amount
     receiver_amount = amount
     if not sender.currency == receiver.currency:
-        conversion_rate = get_conversion_rate(sender.currency, receiver.currency)
-        receiver_amount = convert_funds(amount, conversion_rate)
+        result = get_conversion_rate(sender.currency, receiver.currency)
+        if not isinstance(result, float):
+            return result
+        receiver_amount = convert_funds(amount, result)
 
     transaction = Transaction(
         sender_email=sender.email,
@@ -51,6 +55,7 @@ def create_payment_request(sender_email, receiver_email, reference, amount):
         type=TransactionType.REQUEST
     )
     transaction.save()
+    return transaction
 
 
 def update_user_balances_direct(transaction):

@@ -1,13 +1,6 @@
 from register.models import User
 from payapp.models import Transaction, TransactionStatus, TransactionType
 from django.db.models import Q
-import requests
-
-
-def get_conversion_rate(from_currency, to_currency):
-    response = requests.get('http://localhost:10000/webapps2024/conversion/' + from_currency + '/' + to_currency + '/')
-    exchange_rate = response.json()
-    return exchange_rate['conversion_rate']
 
 
 def get_all_transactions():
