@@ -9,10 +9,10 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Forename', 'autocomplete': 'off'}))
     last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Surname', 'autocomplete': 'off'}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email', 'autocomplete': 'off'}))
-    phone_number = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number', 'autocomplete': 'off'}))
+    phone_number = forms.CharField(required=True, label='Phone Number', widget=forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Phone Number', 'autocomplete': 'off'}))
     currency = forms.ChoiceField(required=True, choices=Currencies.choices, widget=forms.Select(attrs={'autocomplete': 'off'}))
-    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'autocomplete': 'off'}))
-    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'autocomplete': 'off'}))
+    password1 = forms.CharField(required=True, label='Password', widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'autocomplete': 'off'}))
+    password2 = forms.CharField(required=True, label='Confirm Password', widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'autocomplete': 'off'}))
     balance = forms.FloatField(required=False, widget=forms.HiddenInput())
 
     class Meta:

@@ -45,7 +45,6 @@ urlpatterns = [
     path('webapps2024/logout/', register_views.user_logout, name='logout'),
     path('webapps2024/unauthorised/', register_views.unauthorised, name='unauthorised'),
     path('webapps2024/conversion/<str:from_currency>/<str:to_currency>/', converter.Conversion.as_view())
-
 ]
 
 # Depending on if DEBUG is True or False will determine if the dev window to the in-built Django admin page is available to site admins

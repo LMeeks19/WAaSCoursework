@@ -62,8 +62,8 @@ def update_user_balances_direct(transaction):
     sender = get_user_by_email(transaction.sender_email)
     receiver = get_user_by_email(transaction.receiver_email)
 
-    sender.balance = sender.balance - transaction.sender_amount
-    receiver.balance = receiver.balance + transaction.receiver_amount
+    sender.balance = round((sender.balance - transaction.sender_amount), 2)
+    receiver.balance = round((receiver.balance + transaction.receiver_amount), 2)
 
     sender.save()
     receiver.save()
@@ -73,8 +73,8 @@ def update_user_balances_request(transaction):
     sender = get_user_by_email(transaction.sender_email)
     receiver = get_user_by_email(transaction.receiver_email)
 
-    sender.balance = sender.balance + transaction.sender_amount
-    receiver.balance = receiver.balance - transaction.receiver_amount
+    sender.balance = round(sender.balance + transaction.sender_amount, 2)
+    receiver.balance = round(receiver.balance - transaction.receiver_amount, 2)
 
     sender.save()
     receiver.save()

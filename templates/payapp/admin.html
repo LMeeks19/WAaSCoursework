@@ -45,7 +45,7 @@
                             <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.phone_number }}</td>
-                            <td>{{ user.get_currency_symbol }}{{ user.balance }}</td>
+                            <td>{{ user.get_currency_symbol }}{{ user.balance|floatformat:-2 }}</td>
                             <td>
                                 {% if user.is_superuser %}
                                     Yes

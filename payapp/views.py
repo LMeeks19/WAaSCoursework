@@ -19,15 +19,17 @@ def direct_payments(request):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        result = create_direct_payment(sender_email=request.user.email,
-                                              receiver_email=form.cleaned_data.get('receiver_email'),
-                                              reference=form.cleaned_data.get('reference'),
-                                              amount=form.cleaned_data.get('amount'))
+                        result = create_direct_payment(
+                            sender_email=request.user.email,
+                            receiver_email=form.cleaned_data.get('receiver_email'),
+                            reference=form.cleaned_data.get('reference'),
+                            amount=form.cleaned_data.get('amount'))
                         if not isinstance(result, Transaction):
                             messages.error(request, result)
                         else:
                             messages.success(request,
-                                         'Direct Payment sent to {0}'.format(form.cleaned_data.get('receiver_email')))
+                                             "Direct Payment sent to {0}".format(
+                                                 form.cleaned_data.get('receiver_email')))
                 except OperationalError:
                     messages.error(request, "Unable to send Direct Payment of this amount anymore")
                 return redirect('direct-payments')
@@ -42,18 +44,22 @@ def payment_requests(request):
         form = PaymentRequestForm(request.POST or None)
         if request.method == "POST":
             if form.is_valid():
-                result = create_payment_request(sender_email=request.user.email,
-                                       receiver_email=form.cleaned_data.get('receiver_email'),
-                                       reference=form.cleaned_data.get('reference'),
-                                       amount=form.cleaned_data.get('amount'))
+                result = create_payment_request(
+                    sender_email=request.user.email,
+                    receiver_email=form.cleaned_data.get('receiver_email'),
+                    reference=form.cleaned_data.get('reference'),
+                    amount=form.cleaned_data.get('amount'))
                 if not isinstance(result, Transaction):
-                    messages.success(request, result)
+                    messages.error(request, result)
                 else:
-                    messages.success(request, 'Payment Request sent to {0}'.format(form.cleaned_data.get('receiver_email')))
+                    messages.success(request,
+                                     'Payment Request sent to {0}'.format(form.cleaned_data.get('receiver_email')))
                 return redirect('payment-requests')
         user_sent_requests = get_user_sent_payment_requests(request.user.email)
         user_received_requests = get_user_received_payment_requests(request.user.email)
-        return render(request, "payapp/payment-requests.html", {"user_received_requests": user_received_requests, "user_sent_requests": user_sent_requests, "payment_requests_form": form})
+        return render(request, "payapp/payment-requests.html",
+                      {"user_received_requests": user_received_requests, "user_sent_requests": user_sent_requests,
+                       "payment_requests_form": form})
     return redirect('unauthorised')
 
 

@@ -36,7 +36,7 @@
                                 <td>{{ sent_request.receiver_email }}</td>
                                 <td>{{ sent_request.reference }}</td>
                                 <td>{{ sent_request.send_date }}</td>
-                                <td>{{ sent_request.get_sender_currency_symbol }}{{ sent_request.sender_amount }}</td>
+                                <td>{{ sent_request.get_sender_currency_symbol }}{{ sent_request.sender_amount|floatformat:-2 }}</td>
                                 {%  if sent_request.status == "PENDING" %}
                                     <td class="pending">{{ sent_request.status }}</td>
                                 {%  elif sent_request.status == "REJECTED" %}
@@ -72,7 +72,7 @@
                                 <td>{{ received_request.sender_email }}</td>
                                 <td>{{ received_request.reference }}</td>
                                 <td>{{ received_request.send_date }}</td>
-                                <td>{{ received_request.get_receiver_currency_symbol }}{{ received_request.receiver_amount }}</td>
+                                <td>{{ received_request.get_receiver_currency_symbol }}{{ received_request.receiver_amount|floatformat:-2 }}</td>
                                 {% if received_request.status == "PENDING" %}
                                     <td class="buttons">
                                         <form method="get" action="/webapps2024/payment-requests/accept/">

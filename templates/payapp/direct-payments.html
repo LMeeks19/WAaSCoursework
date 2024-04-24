@@ -33,7 +33,7 @@
                             <td>{{ direct_payment.receiver_email }}</td>
                             <td>{{ direct_payment.reference }}</td>
                             <td>{{ direct_payment.send_date }}</td>
-                            <td>{{ direct_payment.get_sender_currency_symbol }}{{ direct_payment.sender_amount }}</td>
+                            <td>{{ direct_payment.get_sender_currency_symbol }}{{ direct_payment.sender_amount|floatformat:-2 }}</td>
                         </tr>
                     {% endfor %}
                 {% else %}
