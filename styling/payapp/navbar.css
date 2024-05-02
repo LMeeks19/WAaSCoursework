@@ -36,6 +36,16 @@
     width: 160px;
 }
 
+.navbar .topper .link,
+.navbar .footer .link {
+    &.active {
+        background-color: floralwhite;
+        .icon, .text {
+            color: #00A3FF !important;
+        }
+    }
+}
+
 .navbar .topper .link:last-child
 .navbar .footer .link:last-child {
     margin-bottom: 0;
@@ -51,11 +61,15 @@
     color: floralwhite;
 }
 
-.navbar .topper .link:hover .icon,
-.navbar .footer .link:hover .icon,
-.navbar .topper .link:hover .text,
-.navbar .footer .link:hover .text {
-    color: lightgray;
+.navbar .topper .link:hover,
+.navbar .footer .link:hover,
+.navbar .topper .link:hover,
+.navbar .footer .link:hover {
+    background-color: floralwhite;
+
+    .icon, .text {
+        color: #00A3FF;
+    }
 }
 
 .navbar .topper .link .text,
