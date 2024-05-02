@@ -6,7 +6,7 @@ from payapp.models import ExchangeRates
 import requests
 
 
-CURRENCY_CONVERSION_URL = 'http://localhost:10000/webapps2024/conversion/'
+CURRENCY_CONVERSION_URL = 'http:/localhost:8000/webapps2024/conversion/'
 
 
 class Currencies(models.TextChoices):
