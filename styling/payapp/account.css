@@ -1,0 +1,43 @@
+.profile-container {
+    height: calc(100vh - 168px);
+    h1 {
+        margin: 40px 60px 0 60px;
+        border-bottom: 1px solid black;
+    }
+
+    .profile-table {
+        margin: 40px 60px 40px 60px;
+        overflow: auto;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                tr {
+                    th {
+                        width: 50%;
+                        padding: 10px;
+                        background-color: #00A3FF;
+                        font-size: larger;
+                        color: floralwhite;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        width: 50%;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                }
+
+                tr:nth-child(odd) td {
+                    background-color: lightgrey;
+                }
+            }
+        }
+    }
+}

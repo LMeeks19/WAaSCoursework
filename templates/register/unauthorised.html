@@ -1,0 +1,16 @@
+<!-- This page is displayed if the url that is trying to be accessed exists but the user is not authenticated -->
+
+{% extends 'register/base.html' %}
+
+{% block title %}
+    Payapp Unauthorised
+{% endblock %}
+
+{% block content %}
+    
+    <div class="unauthorised">
+        <h1>Unauthorised Access</h1>
+        <div>Return to <a href="{% url 'login' %}">Login</a></div>
+    </div>
+
+{% endblock %}

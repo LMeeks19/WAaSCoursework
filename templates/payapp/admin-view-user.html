@@ -1,0 +1,91 @@
+<!-- This page allows admins to view a specific user's information and all their transactions -->
+
+{% extends 'payapp/admin-base.html' %}
+
+{% block title %}
+    Payapp Admin View User
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin: 40px 60px 0 60px; border-bottom: 1px solid black;">
+        <a href="{% url 'admin' %}">
+            <i class="fa-solid fa-angles-left"></i>
+        </a>
+        User
+    </h1>
+    <div class="section">
+        <div class="account-main-details">
+            <div class="account-name">{{ selected_user.get_full_name }}</div>
+            <div class="account-balance">{{ selected_user.get_currency_symbol }}{{ selected_user.balance }}</div>
+        </div>
+        <div class="account-username">Username: {{ selected_user.username }}</div>
+        <div class="account-email">Email: {{ selected_user.email }}</div>
+        <div class="account-phone-number">Phone Number: {{ selected_user.phone_number }}</div>
+        <div class="account-admin">
+            Admin:
+            {% if selected_user.is_superuser %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+            {% if selected_user.id != user.id  %}
+                <a class="change-admin-status" title="Update Admin Status" href="/webapps2024/admin/view/{{ selected_user.id }}/update-admin-status">
+                    <i class="fa-solid fa-rotate"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="admin-view-container">
+        <h1>Transactions</h1>
+        <div class="user-transactions-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Reference</th>
+                    <th>Sent On</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if user_transactions %}
+                    {%  for transaction in user_transactions %}
+                        <tr>
+                            {% if transaction.sender_email == selected_user.email %}
+                                <td>{{ transaction.receiver_email }}</td>
+                            {%  else %}
+                                <td>{{ transaction.sender_email }}</td>
+                            {% endif %}
+                            <td>{{ transaction.reference }}</td>
+                            <td>{{ transaction.send_date }}</td>
+                            {% if transaction.type == "DIRECT" %}
+                                {% if transaction.sender_email == selected_user.email %}
+                                    <td class="amount-minus">-{{ transaction.get_sender_currency_symbol }}{{ transaction.sender_amount|floatformat:-2 }}</td>
+                                {% elif transaction.receiver_email == selected_user.email  %}
+                                    <td class="amount-add">+{{ transaction.get_receiver_currency_symbol }}{{ transaction.receiver_amount|floatformat:-2 }}</td>
+                                {% endif %}
+                            {% elif transaction.type == "REQUEST" %}
+                                {% if transaction.sender_email == selected_user.email %}
+                                    <td class="amount-add">+{{ transaction.get_sender_currency_symbol }}{{ transaction.sender_amount|floatformat:-2 }}</td>
+                                {% elif transaction.receiver_email == selected_user.email  %}
+                                    <td class="amount-minus">-{{ transaction.get_receiver_currency_symbol }}{{ transaction.receiver_amount|floatformat:-2 }}</td>
+                                {% endif %}
+                            {% endif %}
+                            <td>{{ transaction.type }}</td>
+                            {%  if transaction.status == "PENDING" %}
+                                <td class="pending">{{ transaction.status }}</td>
+                            {%  elif transaction.status == "REJECTED" %}
+                                <td class="rejected">{{ transaction.status }}</td>
+                            {%  elif transaction.status == "CLEARED" %}
+                                <td class="accepted">{{ transaction.status }}</td>
+                            {% endif %}
+                        </tr>
+                    {%  endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

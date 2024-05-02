@@ -3,13 +3,14 @@
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.4fr 3.3fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr;
     gap: 0 0;
     grid-template-areas:
     "."
     "."
     "tables";
-    max-height: 100%;
+    height: calc(100vh - 168px);
+
 
     h1 {
         border-bottom: 1px solid #000;
@@ -25,22 +26,45 @@
         gap: 20px;
         flex-wrap: wrap;
 
-        button {
+        ul {
+            width: 100%;
+            margin: 0;
+            list-style-type: none;
+
+            li {
+                text-align: center;
+                color: red;
+            }
+        }
+
+        input[type='submit'] {
             background-color: #00A3FF;
             cursor: pointer;
             color: floralwhite;
             font-weight: bold;
         }
 
-        button:hover {
+        input[type='submit']:hover {
             filter: drop-shadow(0 0 .5rem black);
         }
 
-        button:active {
+        input[type='submit']:active {
             filter: none;
         }
 
-        input, button {
+        .email-field {
+            width: 28% !important;
+        }
+
+        .reference-field {
+            width: 28% !important;
+        }
+
+        .amount-field {
+            width: 18% !important;
+        }
+
+        input, input[type='submit'] {
             min-width: 200px;
             width: 18%;
             padding: 15px;
@@ -55,6 +79,7 @@
         margin: 0 60px 40px 60px !important;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.1fr 3fr;
         column-gap: 60px;
         grid-template-areas:
         "sent rec"
@@ -101,13 +126,24 @@
                             text-align: center;
                             font-size: large;
 
+                            &.buttons {
+                                form {
+                                    display: inline !important;
+
+                                    button {
+                                        background-color: inherit;
+                                        border: none;
+                                        font-size: 1rem;
+                                    }
+                                }
+                            }
+
                             &.pending {
                                 color: goldenrod;
                             }
                             &.accepted {
                                 color: green;
                             }
-
                             &.rejected {
                                 color: orangered;
                             }
@@ -136,7 +172,7 @@
                         }
                     }
 
-                    tr:nth-child(even) td {
+                    tr:nth-child(odd) td {
                         background-color: lightgrey;
                     }
 

@@ -1,46 +1,48 @@
+<!-- This page displays the current users direct payments that they have sent and allows them to send direct payments -->
+
 {% extends 'payapp/base.html' %}
 
 {% block title %}
-    Payapp Make Payment
+    Payapp Direct Payments
 {% endblock %}
 
 {% block content %}
-
-    <div class="content">
-        <div class="direct-payment-container">
-            <h1>Send Direct Payment</h1>
-            <form class="pay">
-                <label hidden="hidden" for="account-number"></label>
-                <input type="number" id="account-number" name="account-number" placeholder="Account Number: XXXXXXXX" min="8" max="8" required>
-                <label hidden="hidden" for="sort-code"></label>
-                <input type="number" id="sort-code" name="sort-code" placeholder="Sort Code: XXXXXX" min="6" max="6" required>
-                <label hidden="hidden" for="reference"></label>
-                <input type="text" id="reference" name="reference" placeholder="Reference" maxlength="50" required>
-                <label hidden="hidden" for="amount"></label>
-                <input type="number" id="amount" name="amount" placeholder="Amount" min="0" max="100" required><!-- max will be updated to max out at users available funds -->
-                <button type="submit">Pay</button>
-            </form>
-            <h1>Sent Direct Payments</h1>
-            <div class="table-container">
-                <table>
-                    <thead>
+    <div class="direct-payment-container">
+        <h1>Send Direct Payment</h1>
+        <form method="post" class="pay">
+            {% csrf_token %}
+            {{ direct_payment_form }}
+            <input type="hidden" name="sender_email" value="{{ user.email }}">
+            <input type="submit" value="Send" />
+        </form>
+        <h1>Sent Direct Payments</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Sent To</th>
+                    <th>Reference</th>
+                    <th>Sent On</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if user_direct_payments %}
+                    {%  for direct_payment in user_direct_payments %}
                         <tr>
-                            <th>Name</th>
-                            <th>Reference</th>
-                            <th>Sent On</th>
-                            <th>Amount</th>
+                            <td>{{ direct_payment.receiver_email }}</td>
+                            <td>{{ direct_payment.reference }}</td>
+                            <td>{{ direct_payment.send_date }}</td>
+                            <td>{{ direct_payment.get_sender_currency_symbol }}{{ direct_payment.sender_amount|floatformat:-2 }}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>User 1</td>
-                            <td>Reference</td>
-                            <td>Date</td>
-                            <td>£500</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td style="text-align: center" colspan="4">No Direct Payments</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

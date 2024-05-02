@@ -1,5 +1,7 @@
 .register-container {
     width: 50%;
+    height: 75%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,20 +14,25 @@
 
     .register-form {
         width: 100%;
-        padding: 30px;
+        height: 100%;
+        padding: 0 30px 30px 30px;
         border-radius: 5px;
+        overflow: auto;
     }
 
-    .register-form .name-inputs {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        gap: 20px;
+    ul {
+        margin: 10px 0 10px 0;
+        list-style-type: none;
+
+        li {
+            text-align: center;
+            color: red;
+        }
     }
 
     h1 {
         text-align: center;
-        margin: 0 !important;
+        margin-bottom: 20px;
         color: #00A3FF;
     }
 
@@ -38,20 +45,22 @@
     .register-form input[type="text"],
     .register-form input[type="email"],
     .register-form input[type="tel"],
-    .register-form input[type="password"] {
+    .register-form input[type="password"],
+    .register-form select {
+        margin-top: 1px;
         width: 100%;
         padding: 10px;
-        margin-bottom: 20px;
         border: 1px solid #000;
         border-radius: 5px;
         box-sizing: border-box;
+        margin-bottom: 20px;
     }
 
 
     .register-form input[type="submit"] {
         width: 100%;
         padding: 10px;
-        margin-top: 10px;
+        margin-top: 20px;
         background-color: #00A3FF;
         border-radius: 15px;
         border: none;
@@ -71,6 +80,8 @@
 
     .footer {
         font-weight: 500;
+        text-align: center;
+        margin-top: 20px;
 
         a {
             color: #00A3FF;

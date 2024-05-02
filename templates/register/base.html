@@ -1,18 +1,14 @@
-{% load static %}
+<!-- This is the base template that all registration pages are built off of -->
+{%  extends 'base.html' %}
+{%  load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{% block title %}Webapps2024 Application{% endblock %}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block body %}
     <link rel="stylesheet" href="{% static 'register/base.css' %}">
-</head>
 
-<body>
-<div class="page">
-    {% block content %}
-    {% endblock %}
-</div>
-</body>
-</html>
+    <div class="page">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

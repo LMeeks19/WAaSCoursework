@@ -1,6 +1,5 @@
 @import "register.css";
 @import "login.css";
-@import "forgot-password.css";
 
 body {
     margin: 0;
@@ -19,6 +18,15 @@ body {
     width: 100%;
     background-color: floralwhite;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unauthorised, .not-found {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

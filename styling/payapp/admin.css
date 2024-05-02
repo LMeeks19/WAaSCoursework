@@ -1,0 +1,109 @@
+.admin-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    gap: 0 0;
+    grid-template-areas:
+    "."
+    ".";
+    height: 100vh;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 40px 60px 0 60px;
+        border-bottom: 1px solid black;
+
+        h1 {
+            margin: 0;
+        }
+
+
+        a {
+            background-color: #00A3FF;
+            color: floralwhite;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        a:hover {
+            filter: drop-shadow(0 0 .5rem black);
+        }
+
+        a:active {
+            filter: none;
+        }
+    }
+
+    .admin-table {
+        margin: 40px 60px 40px 60px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                tr {
+                    th {
+                        padding: 10px;
+                        background-color: #00A3FF;
+                        font-size: larger;
+                        color: floralwhite;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 10px;
+                        text-align: center;
+
+                        &.pending {
+                            color: goldenrod;
+                        }
+                        &.cleared {
+                            color: green;
+                        }
+                        &.rejected {
+                            color: orangered;
+                        }
+
+                        a {
+                            text-decoration: none;
+                            color: #00A3FF;
+                        }
+
+                        a:hover{
+                            filter: drop-shadow(0 0 .5rem black);
+                        }
+
+                        a:active {
+                            filter: none;
+                        }
+                    }
+                }
+
+                tr:nth-child(even) td {
+                    background-color: lightgrey;
+                }
+
+                tr:hover {
+                    box-shadow: 0 0 20px -5px black;
+                    position: relative;
+                    z-index: 100;
+                }
+            }
+        }
+    }
+}

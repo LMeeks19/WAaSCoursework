@@ -1,33 +1,20 @@
+<!-- This page displays a registration form that users can use to sign up to the site -->
+
 {% extends 'register/base.html' %}
 
 {% block title %}
     Payapp Registration
 {% endblock %}
 
+
 {% block content %}
-    <div class="content">
-        <div class="register-container">
-            <h1>Create Account</h1>
-            <form class="register-form">
-                <label hidden="hidden" for="forename"></label>
-                <label hidden="hidden" for="surname"></label>
-                <div class="name-inputs">
-                    <input placeholder="Forename" type="text" id="forename" name="forename">
-                    <input placeholder="Surname" type="text" id="surname" name="surname">
-                </div>
-                <label hidden="hidden" for="username"></label>
-                <input placeholder="Username" type="text" id="username" name="username">
-                <label hidden="hidden" for="email"></label>
-                <input placeholder="Email" type="email" id="email" name="email">
-                <label hidden="hidden" for="phone-number"></label>
-                <input placeholder="Phone Number" type="tel" id="phone-number" name="phone-number">
-                <label hidden="hidden" for="password"></label>
-                <input placeholder="Password" type="password" id="password" name="password">
-                <label hidden="hidden" for="confirm-password"></label>
-                <input placeholder="Confirm Password" type="password" id="confirm-password" name="confirm-password">
-                <input type="submit" value="Sign Up">
-            </form>
-            <div class="footer">Already have an account? <a href="/webapps2024/login/">Sign In</a></div>
-        </div>
+    <div class="register-container">
+        <h1>Create Account</h1>
+        <form method="post" class="register-form">
+            {% csrf_token %}
+            {{ user_registration_form }}
+            <input type="submit" value="Sign Up" />
+        </form>
+        <div class="footer">Already have an account? <a href="{% url 'login' %}">Sign In</a></div>
     </div>
 {% endblock %}

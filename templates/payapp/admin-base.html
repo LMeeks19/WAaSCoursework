@@ -1,0 +1,52 @@
+<!-- This is the base template for the admin page it differs slightly from the generic base template as it doesn't contain the current users account information-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <link rel="stylesheet" href="{% static 'payapp/base.css' %}">
+
+    <div class="page">
+        {% if user.is_authenticated %}
+            <div id="navbar" class="navbar">
+                <div class="topper">
+                    <a href="{% url 'direct-payments' %}" class="link {% if request.resolver_match.url_name == 'direct-payments' %}active{% endif %}">
+                        <i class="fa-solid fa-hand-holding-dollar fa-xl icon"></i>
+                        <div class="text">Pay</div>
+                    </a>
+                    <a href="{% url 'payment-requests' %}" class="link {% if request.resolver_match.url_name == 'payment-requests' %}active{% endif %}">
+                        <i class="fa-solid fa-file-invoice-dollar fa-xl icon"></i>
+                        <div class="text">Request</div>
+                    </a>
+                    <a href="{% url 'transactions' %}" class="link {% if request.resolver_match.url_name == 'transactions' %}active{% endif %}">
+                        <i class="fa-solid fa-money-bill-transfer fa-xl icon"></i>
+                        <div class="text">Transactions</div>
+                    </a>
+                </div>
+                <div class="footer">
+                    {%  if user.is_superuser %}
+                        <a href="{% url 'admin' %}" class="link {% if request.resolver_match.url_name == 'admin' %}active{% endif %}">
+                            <i class="fa-solid fa-users fa-xl icon"></i>
+                            <div class="text">Admin</div>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'account' %}" class="link {% if request.resolver_match.url_name == 'account' %}active{% endif %}">
+                        <i class="fa-solid fa-circle-user fa-xl icon"></i>
+                        <div class="text">Account</div>
+                    </a>
+                    <a href="{% url 'logout' %}" class="link {% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
+                        <i class="fa-solid fa-right-from-bracket fa-xl icon"></i>
+                        <div class="text">Sign Out</div>
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        {% else %}
+            {% block unauthorised %}
+            {%  endblock %}
+        {% endif %}
+    </div>
+{% endblock %}
+                                                                                                                    
