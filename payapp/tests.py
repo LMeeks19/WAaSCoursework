@@ -6,7 +6,7 @@ from payapp.models import ExchangeRates
 from payapp.converter import get_conversion_rate, CURRENCY_CONVERSION_URL
 import requests
 
-
+# Tests the direct payment form validation
 class TestDirectPaymentForm(TestCase):
     def setUp(self):
         user1 = User(username='test_user_1',
@@ -60,7 +60,7 @@ class TestDirectPaymentForm(TestCase):
         self.assertEqual(form.errors['__all__'], ['You do not contain the required funds to make this payment'])
         self.assertFalse(form.is_valid())
 
-
+# Tests the payment request form validation
 class TestPaymentRequestForm(TestCase):
     def setUp(self):
         user1 = User(username='test_user_1',
@@ -110,6 +110,7 @@ class TestPaymentRequestForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
+# Tests the currency converter (NOTE: WILL ONLY WORK WHEN THE SERVER IS RUNNING)
 class TestCurrencyConverter(TestCase):
     def setUp(self):
         GBP_to_USD = ExchangeRates(from_currency='GBP', to_currency='USD', conversion_rate=1.23)

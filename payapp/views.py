@@ -12,6 +12,7 @@ from webapps2024.settings import DEBUG
 from payapp.models import Transaction
 
 
+# Direct Payment page view
 def direct_payments(request):
     if request.user.is_authenticated:
         form = DirectPaymentForm(request.POST or None)
@@ -39,6 +40,7 @@ def direct_payments(request):
     return redirect('unauthorised')
 
 
+# Payment Request page view
 def payment_requests(request):
     if request.user.is_authenticated:
         form = PaymentRequestForm(request.POST or None)
@@ -63,6 +65,7 @@ def payment_requests(request):
     return redirect('unauthorised')
 
 
+# View for accepting a payment request
 def payment_request_accept(request):
     if request.user.is_authenticated:
         if request.method == "GET":
@@ -82,6 +85,7 @@ def payment_request_accept(request):
     return redirect('unauthorised')
 
 
+# View for rejecting a payment request
 def payment_request_reject(request):
     if request.user.is_authenticated:
         if request.method == "GET":
@@ -92,6 +96,7 @@ def payment_request_reject(request):
     return redirect('unauthorised')
 
 
+# Transactions page view
 def transactions(request):
     if request.user.is_authenticated:
         user_transactions = get_user_cleared_transactions(request.user.email)
@@ -99,12 +104,14 @@ def transactions(request):
     return redirect('unauthorised')
 
 
+# Account page view
 def account(request):
     if request.user.is_authenticated:
         return render(request, "payapp/account.html")
     return redirect('unauthorised')
 
 
+# Admin page view
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -116,6 +123,7 @@ def admin(request):
     return redirect('unauthorised')
 
 
+# Admin Create User page view
 def admin_create_user(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -149,6 +157,7 @@ def admin_create_user(request):
     return redirect('unauthorised')
 
 
+# Admin View User page view
 def admin_view_user(request, id):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -162,6 +171,7 @@ def admin_view_user(request, id):
     return redirect('unauthorised')
 
 
+# View for updating the admin status of a user
 def change_admin_status(request, id):
     if request.user.is_authenticated:
         if request.user.is_superuser:

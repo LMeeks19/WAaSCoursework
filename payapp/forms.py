@@ -3,6 +3,7 @@ from register.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 
+# Direct payment form and all its validation
 class DirectPaymentForm(forms.Form):
     sender_email = forms.EmailField(required=True, label=False, widget=forms.HiddenInput())
     receiver_email = forms.EmailField(required=True, label=False, widget=forms.TextInput(
@@ -32,6 +33,7 @@ class DirectPaymentForm(forms.Form):
         return amount
 
 
+# Payment Request form and all its validation
 class PaymentRequestForm(forms.Form):
     sender_email = forms.EmailField(required=True, label=False, widget=forms.HiddenInput())
     receiver_email = forms.EmailField(required=True, label=False, widget=forms.TextInput(

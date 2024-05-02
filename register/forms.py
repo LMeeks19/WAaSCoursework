@@ -4,6 +4,7 @@ from .models import User
 from payapp.converter import get_conversion_rate, convert_funds, Currencies, is_valid_currency
 
 
+# Registration form and all of its validation
 class RegisterForm(UserCreationForm):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'autocomplete': 'off'}))
     first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Forename', 'autocomplete': 'off'}))
@@ -54,6 +55,7 @@ class RegisterForm(UserCreationForm):
             self.add_error("password1", "Password must not contain any whitespace characters")
         return password1
 
+    # Sets the balance for the user depending on the currency they choose
     def clean_balance(self):
         balance = 1000
         to_currency = Currencies.GBP

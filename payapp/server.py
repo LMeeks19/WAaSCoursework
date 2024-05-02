@@ -2,6 +2,9 @@ from register.models import User
 from payapp.models import Transaction, TransactionStatus, TransactionType
 from django.db.models import Q
 
+# This file contains all the database calls needed for the application
+# Having them in this separate file makes it more readable
+
 
 def get_all_transactions():
     return list(Transaction.objects.all())

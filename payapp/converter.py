@@ -6,19 +6,24 @@ from payapp.models import ExchangeRates
 import requests
 
 
+# The 'localhost' aspect of this URL will be changed to what ever the current EC2 instance public IP address
+# is when asked to run the server for the additional marks
 CURRENCY_CONVERSION_URL = 'http:/localhost:8000/webapps2024/conversion/'
 
 
+# Enum of currency types
 class Currencies(models.TextChoices):
     GBP = 'GBP', _('GBP')
     EUR = 'EUR', _('EUR')
     USD = 'USD', _('USD')
 
 
+# Checks to see if the inputted currency is a valid currency
 def is_valid_currency(currency):
     return currency == Currencies.GBP or currency == Currencies.USD or currency == Currencies.EUR
 
 
+# Rest framework serializer
 class ConversionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExchangeRates
@@ -36,6 +41,7 @@ class Conversion(generics.RetrieveAPIView):
         return exchange_rate
 
 
+# Method to retrieve the currency conversion
 def get_conversion_rate(from_currency, to_currency):
     response = requests.get(CURRENCY_CONVERSION_URL + from_currency + '/' + to_currency + '/')
     result = response.json()
@@ -44,5 +50,6 @@ def get_conversion_rate(from_currency, to_currency):
     return result['conversion_rate']
 
 
+# formula for currency conversion
 def convert_funds(amount, conversion_rate):
     return amount * conversion_rate

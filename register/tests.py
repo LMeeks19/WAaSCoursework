@@ -4,6 +4,7 @@ from .models import User
 from payapp.converter import Currencies, is_valid_currency
 
 
+# Tests the registration form validation
 class TestRegisterForm(TestCase):
     def setUp(self):
         user = User(username='test_user_1',

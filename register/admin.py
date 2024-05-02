@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
 
+# This file enables the new fields added to be displayed in the django in-built admin page when it is enabled
+
 
 class Admin(UserAdmin):
     list_display = (

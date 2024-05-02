@@ -3,6 +3,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import models
 
 
+# Custom User model that adds additional fields and contains methods to streamline the creation of users and admins
 class User(AbstractUser):
     phone_number = PhoneNumberField(blank=True)
     balance = models.FloatField()

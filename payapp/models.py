@@ -2,17 +2,20 @@ import django.utils.timezone
 from django.db import models
 
 
+# Transaction status enum
 class TransactionStatus(models.TextChoices):
     PENDING = 'PENDING',
     CLEARED = 'CLEARED',
     REJECTED = 'REJECTED',
 
 
+# Transaction type enum
 class TransactionType(models.TextChoices):
     DIRECT = 'DIRECT',
     REQUEST = 'REQUEST',
 
 
+# Transaction model
 class Transaction(models.Model):
     sender_email = models.EmailField()
     sender_currency = models.CharField(max_length=3)
@@ -42,6 +45,7 @@ class Transaction(models.Model):
             return "$"
 
 
+# Exchange Rates model
 class ExchangeRates(models.Model):
     from_currency = models.CharField(max_length=3)
     to_currency = models.CharField(max_length=3)
