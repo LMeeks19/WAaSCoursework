@@ -8,7 +8,7 @@ import requests
 
 # The 'localhost' aspect of this URL will be changed to what ever the current EC2 instance public IP address
 # is when asked to run the server for the additional marks
-CURRENCY_CONVERSION_URL = 'http:/localhost:8000/webapps2024/conversion/'
+CURRENCY_CONVERSION_URL = 'http://localhost:8000/webapps2024/conversion/'
 
 
 # Enum of currency types
