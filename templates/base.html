@@ -30,8 +30,10 @@
 </head>
 
 <body>
-    {% block body %}
-    {%  endblock %}
+    {% autoescape on %}
+        {% block body %}
+        {%  endblock %}
+    {%  endautoescape %}
 </body>
 
 </html>
